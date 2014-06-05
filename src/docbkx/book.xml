@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book version="5.0" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook" xml:id="book">
+      
+  <info>
+    
+      <title>Thales HSM</title>
+      <subtitle>Digital Key Management Concepts and Exercises</subtitle>
+      
+<!--       <legalnotice> -->
+<!-- 	 	<title>This documentation is distributed under Creative Commons	Attribution-ShareAlike 3.0 Unported License</title> -->
+<!--       </legalnotice> -->
+    
+      <copyright>
+      	<year>2012</year>
+      	<holder>Chris Snow</holder>
+      	<holder>Colin Cook</holder>
+      	<holder>Nick Bitounis</holder>
+      </copyright>
+
+<!--       <abstract>TODO</abstract> -->
+      
+      <authorgroup>
+		<author>
+			<personname>
+				<firstname>Chris</firstname>
+				<surname>Snow</surname>
+			</personname>
+		</author>
+		<author>
+			<personname>
+				<firstname>Colin</firstname>
+				<surname>Cook</surname>
+			</personname>
+		</author>
+		<author>
+			<personname>
+				<firstname>Nick</firstname>
+				<surname>Bitounis</surname>
+			</personname>		
+		</author>    
+      </authorgroup>
+      
+  </info>
+
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="preface.xml" />
+
+  <part xml:id="part-one"><title>HSM Concepts</title>
+  
+    <partintro>
+    	<para>
+  		TODO: Intro to this part.
+  		</para>
+  	</partintro>
+  
+	  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="introduction.xml" />
+	  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="lmk_concepts.xml" />
+	  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="key_concepts.xml" />
+	  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="secure_key_exchange.xml" />
+	  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="dynamic_key_exchange.xml" />
+
+	  <chapter><title>PIN block creation (clear PIN blocks).</title></chapter>
+	  <chapter><title>PIN block encryption and security zones. ZPKs and TPKs.</title></chapter>
+	  <chapter><title>PIN translation.</title></chapter>
+	  <chapter><title>MACing.</title></chapter>
+	  <chapter><title>CVV/CVV2/iCVV.</title></chapter>
+	  
+  </part>
+  
+<!--   <part><title>Exercises</title> -->
+  
+<!--   	<partintro> -->
+<!--   		<para> -->
+<!--   		TODO: Intro to this part. -->
+<!--   		</para> -->
+<!--   	</partintro> -->
+  
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_intro.xml" /> -->
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_console.xml" /> -->
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_javaclient.xml" /> -->
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_creating_a_zmk.xml" /> -->
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_creating_a_zpk.xml" /> -->
+  
+<!--   </part>   -->
+  
+  <part xml:id="part-two"><title>Inside the Thales Simulator</title>
+  
+  	<partintro>
+  		<para>
+  		TODO: Intro to this part.
+  		</para>
+  	</partintro>  
+  	
+  	<chapter><title>Codebase overview</title></chapter>
+  	<chapter><title>Implementing a new host command</title></chapter>
+  
+  </part>
+  
+  <appendix xml:id="appendix_cryptography_books" ><title>Introductory Books in Cryptography</title>
+ 
+  </appendix>
+
+  <index xml:id="book_index">
+  <title>Index</title>
+  </index>
+</book>

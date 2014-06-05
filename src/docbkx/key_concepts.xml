@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+    <chapter xml:id="key_concepts"
+      version="5.0" 
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+
+ <title>Key Concepts</title>
+
+    <abstract><title>Abstract</title>
+    	<para>TODO: abstract</para>
+    </abstract>
+
+	<section>
+	
+		<title>Key Types</title>
+		
+		<para>
+			Each different key supported by the Thales HSM has a unique code called the key type code. The 
+			key type is a three-digit number and is made up from the code of the LMK pair and the LMK 
+			variant. Therefore, keys encrypted under LMK pair 04-05 using a variant 1 will have a key 
+			type equal to “00” + “1” = 001. It is important to understand key types since several 
+			Thales commands expect key type codes as parameters. The full list of key types can
+			be seen in <xref linkend="table.key_types" />
+		</para>
+		
+		<para>
+		 <table frame="topbot" xml:id="table.key_types">
+		 
+		 	<title>Key Types</title>
+		 	<?dbfo table-width="50%" ?>
+		 	
+		 	<db:tgroup cols="5">
+				<colspec colname='c1' />
+				<colspec colname='c2' />
+				<colspec colname='c3' />
+				<colspec colname='c4' />
+				<colspec colname='c5' />
+				<thead>
+				<row>
+				  <entry>LMK Key Pair</entry>
+				  <entry>LMK Code</entry>
+				  <entry>Variant</entry>
+				  <entry>Key Type Code</entry>
+				  <entry>Key Type</entry>
+				</row>
+				</thead>
+				<tbody>
+				<row>
+				  <entry>04-05</entry>
+				  <entry>00</entry>
+				  <entry>0</entry>
+				  <entry>000</entry>
+				  <entry>ZMK</entry>
+				</row>			
+				<row>
+				  <entry>04-05</entry>
+				  <entry>00</entry>
+				  <entry>1</entry>
+				  <entry>001</entry>
+				  <entry>ZPK</entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				<row>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				  <entry></entry>
+				</row>			
+				</tbody>	
+		 	</db:tgroup>
+		 </table>		
+		</para>		
+	</section>
+	
+	<section>
+		<title>Key Check Value (KCV)</title>
+		
+		<para>
+			The check value of a key is derived by DES encrypting zeroes<footnote><para>TODO: xxx zeros to be precise.</para></footnote> 
+			using that key. For example, the KCV for key 0123456789ABCDEF is D5D44FF720683D0D.
+		</para>
+		
+		<para>
+			The purpose of a KCV is to ensure that a key has been correctly transmitted between different 
+			parties and that they key is also configured correctly in systems. It is common practice to transmit the KCV 
+			of a key along with the key itself. Sometimes, the complete result of the DES encrypt operation 
+			is used, but typically only the first six digits are used (in the example, D5D44F).
+		</para>
+	</section>
+	
+	<section>
+		<title>Key Formats</title>
+		
+		<para>
+			The Thales HSM uses two major formats when processing security keys. These are 
+			<emphasis>Variant</emphasis> and <emphasis>ANSI</emphasis>. 
+		</para>
+		
+		<para>
+			The variant concept is similar to the one used to form LMK variants: a key is XORed with a value
+			to form the key variant. Double-length keys are XORed with the value: <programlisting>00000000000000A6 000000000000005A</programlisting>
+			and triple-length keys are XORed with the value: <programlisting>00000000000000A6 000000000000005A 000000000000006A</programlisting>
+		</para>
+		
+		<para>TODO: how does the variant concept differ to the LMK variant concept?</para>
+		
+		<para>
+			The ANSI format is much simpler: a key is used as-is without performing any additional operations on it.
+		</para>
+	</section>
+	
+	<section>
+		<title>Key Scheme</title>
+		
+		<para>
+			Depending on their length and key format, keys are designated by a key scheme that helps to quickly 
+			identify the nature of a key. Key schemes are the following:
+			
+		 <table frame="topbot" xml:id="table.lmk_key_schemes">
+		 
+		 	<title>LMK Key Schemes</title>
+		 	<?dbfo table-width="50%" ?>
+		 	
+		 	<db:tgroup cols="2">
+				<colspec colname='c1' colwidth="2*"/>
+				<colspec colname='c2' colwidth="6*"/>
+				<thead>
+				<row>
+				  <entry>Key Scheme</entry>
+				  <entry>Description</entry>
+				</row>
+				</thead>
+				<tbody>
+				<row>
+				  <entry>Z</entry>
+				  <entry>Single-length ANSI keys.</entry>
+				</row>			
+				<row>
+				  <entry>U</entry>
+				  <entry>Double-length variant keys.</entry>
+				</row>
+				<row>
+				  <entry>T</entry>
+				  <entry>Triple-length variant keys.</entry>
+				</row>
+				<row>
+				  <entry>X</entry>
+				  <entry>Double-length ANSI keys.</entry>
+				</row>				
+				<row>
+				  <entry>Y</entry>
+				  <entry>Triple-length ANSI keys.</entry>
+				</row>
+				</tbody>	
+		 	</db:tgroup>
+		 </table>					
+		</para>
+		
+	</section>
+	
+  <section>
+  	<title>Exercises</title>
+  	
+  	<para>TODO - what exercises could be performed on the Simulator around LMK Concepts?</para>
+  	
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_intro.xml" /> -->
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_console.xml" /> -->
+  </section>
+			
+	         
+</chapter>

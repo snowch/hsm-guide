@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<section xml:id="exercise_thalessim_console"
+      version="5.0" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+
+	<title>The Thales Simulator Console</title>
+    
+	<para>
+		In this section, we will connect to the HSM Console and run a basic command, 
+		<command>Query Host (QH)</command> to test connectivity to the HSM.
+	</para>
+	
+	<para>
+		For a full list of console commands, refer to the “Console Reference Manual” 
+		which is available from Thales.  Note that the Thales Simulator only implements 
+		a subset of the commands.  A list of implemented console commands can be found here 
+		<link xlink:href="http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands">http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands</link>.
+	</para>
+	
+	<db:orderedlist>
+		<title>Connecting to the console</title>
+		<listitem>
+			<para>
+				Start the simulator as described in <xref linkend="exercise_starting_the_thalessim" />.
+			</para>
+		</listitem>	
+		<listitem>
+			<para>
+				Click <guibutton>Connect to console</guibutton>.
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				Enter the command <command>QH</command> followed by <command>ENTER</command>.
+				You should see something similar to this: TODO
+			</para>
+		</listitem>
+	</db:orderedlist>
+  
+ </section>

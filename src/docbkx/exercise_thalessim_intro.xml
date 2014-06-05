@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<section xml:id="exercise_thalessim_intro"
+      version="5.0" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+
+	<title>Setting up the Thales Simulator</title>
+    
+	<para>
+		In this exercise, you will download, install and run the Thales Simulator on a Windows machine.
+	</para>
+	
+	<db:orderedlist><title>Download and Install the Thales Simulator</title>
+		<listitem>
+			<para>
+				Download ThalesSim.Setup.0.9.6.x86.zip from:
+				<link xlink:href="http://thalessim.codeplex.com/releases/view/88576">http://thalessim.codeplex.com/releases/view/88576</link> 
+			</para>
+		</listitem>	
+		<listitem>
+			<para>
+				Unzip the downloaded file and execute the file <varname>ThalesWinSimulatorSetup.msi</varname>, accepting the default options.
+			</para>
+		</listitem>
+	</db:orderedlist>
+	
+	<db:orderedlist xml:id="exercise_starting_the_thalessim">
+		<title>Starting the Thales Simulator</title>
+		<listitem>
+			<para>
+				Navigate to the folder where you installed the Simulator (E.g. C:\Program Files (x86)\NTG\Thales Simulator)
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				Execute <varname>ThalesWinSimulator.exe</varname> (if your are running Windows 7, right click the file and select Run As Administrator)
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				Click the <db:guibutton>Start Simulator</db:guibutton> button.  TODO: insert image.
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				In the Application Events window, the simulator will inform you that it could not find a file containing the LMK keys so it will create 
+				a new set of keys for you.  When the simulator creates new keys in this manner, the same keys will always be created.  TODO: insert image.
+			</para>
+		</listitem>			
+	</db:orderedlist>
+  
+ </section>

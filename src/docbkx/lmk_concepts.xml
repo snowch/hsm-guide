@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+    <chapter xml:id="lmk_concepts"
+      version="5.0" 
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+
+ <title>HSM Local Master Keys (LMKs)</title>
+
+    <abstract><title>Abstract</title>
+    	<para>TODO: abstract</para>
+    </abstract>
+
+	<section><title>LMK Overview</title>
+	  	<para>
+			Local Master Keys are a set of DES or triple DES keys. They are stored securely in the HSM 
+			making it very difficult for an attacker to gain access to them. LMKs are the only keys that are stored in the HSM.
+		</para>
+		<para>
+			LMKs are not used for 
+			encrypting data, but are instead used to encrypt and decrypt other keys as these enter or leave 
+			the HSM. LMKs are used to ensure that even if the data traffic between the HSM 
+			and an application is recorded, the clear values of any exchanged keys are not compromised.  	
+	  	</para>
+	  	<para>
+			LMKs come in pairs and the Thales HSM contains several LMK pairs. Different LMK pairs are used
+			to encrypt/decrypt different types of security keys. LMK pairs are identified by two numbers, 
+			for example LMK pair 04-05, LMK pair 14-15, etc. See <xref linkend="figure.hsm_lmks" />.
+		</para>
+	  	<para>
+	  			<db:figure xml:id="figure.hsm_lmks"><title>HSM Local Master Keys</title>
+	           <inlinemediaobject>
+	               <imageobject>
+	                   <imagedata align="middle" valign="middle" fileref="HSM_LMK_Key_Pairs.png" scale="50"/>
+	               </imageobject>
+	           </inlinemediaobject>
+	           </db:figure>
+		</para>
+		<para>
+			Each LMK pair is assigned a code. 
+			LMK pair 04-05 is assigned code 00, while LMK pair 14-15 is assigned code 02.  	
+			The full list of HSM key pairs are listed in <xref linkend="table.lmk_key_pairs" />, 
+			below.  Note that HSM key pairs
+			do not start at 00-01, instead the numbering starts at 04-05, and runs non-contiguously to 38-39.
+			 
+			 <table frame="topbot" xml:id="table.lmk_key_pairs">
+			 
+			 	<title>LMK Key Pairs</title>
+			 	<?dbfo table-width="50%" ?>
+			 	
+			 	<db:tgroup cols="2">
+					<colspec colname='c1'/>
+					<colspec colname='c2'/>
+					<thead>
+					<row>
+					  <entry>Key Pair</entry>
+					  <entry>Code</entry>
+					</row>
+					</thead>
+					<tbody>
+					<row>
+					  <entry>04-05</entry>
+					  <entry>00</entry>
+					</row>			
+					<row>
+					  <entry>06-07</entry>
+					  <entry>01</entry>
+					</row>
+					<row>
+					  <entry>14-15</entry>
+					  <entry>02</entry>
+					</row>
+					<row>
+					  <entry>16-17</entry>
+					  <entry>03</entry>
+					</row>								
+					<row>
+					  <entry>18-19</entry>
+					  <entry>04</entry>
+					</row>	
+					<row>
+					  <entry>20-21</entry>
+					  <entry>05</entry>
+					</row>	
+					<row>
+					  <entry>22-23</entry>
+					  <entry>06</entry>
+					</row>	
+					<row>
+					  <entry>24-25</entry>
+					  <entry>07</entry>
+					</row>	
+					<row>
+					  <entry>26-27</entry>
+					  <entry>08</entry>
+					</row>	
+					<row>
+					  <entry>28-29</entry>
+					  <entry>09</entry>
+					</row>	
+					<row>
+					  <entry>30-31</entry>
+					  <entry>10</entry>
+					</row>	
+					<row>
+					  <entry>32-33</entry>
+					  <entry>11</entry>
+					</row>	
+					<row>
+					  <entry>34-35</entry>
+					  <entry>12</entry>
+					</row>	
+					<row>
+					  <entry>36-37</entry>
+					  <entry>13</entry>
+					</row>	
+					<row>
+					  <entry>38-39</entry>
+					  <entry>14</entry>
+					</row>	
+					</tbody>	
+			 	</db:tgroup>
+			 </table>
+		</para>
+		<para>
+			Each HSM has a unique set of LMK pairs that can be either randomly generated or loaded from 
+			smart cards. HSM users jealously guard the LMKs because the integrity of the key management 
+			security scheme depends upon them.	
+		</para>
+	</section>
+	
+	<section>
+	
+		<title>LMK Variants</title>
+		
+		<para>
+			Back when the HSM had only a handful of LMK pairs, more than the type of keys that had to be 
+			encrypted, a way had to be found to ensure that different key types can be used but also provide
+			a way to identify parity errors with these key types. Variants are an easy way to pseudo-multiply
+			your LMK pairs. (TODO validate this)
+		</para>
+		
+		<para>
+			Keys are encrypted under LMK pairs using either the clear value of the LMK or a variant of 
+			the LMK. An LMK variant is created by performing a XOR operation with a value on the LMK key. 
+			For example, variant 1 of an LMK is created by XORing the LMK with the value 
+			000000000000000000000000000000A6. The Thales HSM supports 10 variants for each LMK pair, 
+			with variant 0 being the clear LMK itself.  The full list of variant calculation functions can
+			be seen in <xref linkend="table.lmk_variant_calculation_function" />
+		</para>
+		
+  		<para>
+  			<db:figure xml:id="figure.hsm_variants"><title>HSM Variants</title>
+           <inlinemediaobject>
+               <imageobject>
+                   <imagedata align="middle" valign="middle" fileref="HSM_LMK_Variants.png" scale="50"/>
+               </imageobject>
+           </inlinemediaobject>
+           </db:figure>
+		</para>
+		
+		<para>
+		 <table frame="topbot" xml:id="table.lmk_variant_calculation_function">
+		 
+		 	<title>LMK Variant Calculation Function</title>
+		 	<?dbfo table-width="70%" ?>
+		 	
+		 	<db:tgroup cols="2">
+				<colspec colname='c1' colwidth="1*"/>
+				<colspec colname='c2' colwidth="6*"/>
+				<thead>
+				<row>
+				  <entry>Variant number</entry>
+				  <entry><para>Variant Calculation Function</para><para>XOR LMK with:</para></entry>
+				</row>
+				</thead>
+				<tbody>
+				<row>
+				  <entry>0</entry>
+				  <entry>Not applicable - use clear value of LMK</entry>
+				</row>			
+				<row>
+				  <entry>1</entry>
+				  <entry><constant>000000000000000000000000000000A6</constant></entry>
+				</row>
+				<row>
+				  <entry>2</entry>
+				  <entry><constant>0000000000000000000000000000005A</constant></entry>
+				</row>
+				<row>
+				  <entry>3</entry>
+				  <entry><constant>0000000000000000000000000000006A</constant></entry>
+				</row>
+				<row>
+				  <entry>4</entry>
+				  <entry><constant>000000000000000000000000000000DE</constant></entry>
+				</row>
+				<row>
+				  <entry>5</entry>
+				  <entry><constant>0000000000000000000000000000002B</constant></entry>
+				</row>
+				<row>
+				  <entry>6</entry>
+				  <entry><constant>00000000000000000000000000000050</constant></entry>
+				</row>
+				<row>
+				  <entry>7</entry>
+				  <entry><constant>00000000000000000000000000000074</constant></entry>
+				</row>
+				<row>
+				  <entry>8</entry>
+				  <entry><constant>0000000000000000000000000000009C</constant></entry>
+				</row>
+				<row>
+				  <entry>9</entry>
+				  <entry><constant>000000000000000000000000000000FA</constant></entry>
+				</row>
+				</tbody>	
+		 	</db:tgroup>
+		 </table>		
+		</para>
+	
+	</section>
+	
+  <section>
+  	<title>Exercises</title>
+  	
+  	<para>TODO - what exercises could be performed on the Simulator around LMK Concepts?</para>
+  	
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_intro.xml" /> -->
+<!--   	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exercise_thalessim_console.xml" /> -->
+  </section>
+			
+	         
+</chapter>
