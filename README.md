@@ -10,7 +10,7 @@ HSM documentation
 - Run: mvn docbkx:generate-pdf
 - Output: target\docbkx\book.pdf
 
-Find prebuilt book here: [book.pdf](book.pdf)
+Find prebuilt book here: [book.pdf](book.pdf?raw=true)
 
 ### Todo
 
