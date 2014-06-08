@@ -5,17 +5,13 @@ HSM documentation
 
 ### To build
 
-- Need: maven on path
-- Need: JAVA_HOME pointing to JDK
-- Run: mvn docbkx:generate-pdf
-- Output: target\docbkx\book.pdf
+To edit the book source, go [here](https://github.com/snowch/hsm-guide/blob/master/book.md) (click on the *Edit* button)
 
-Find prebuilt book here: [book.pdf](book.pdf?raw=true)
+To view the book, go [here](https://gitprint.com/snowch/hsm-guide/blob/master/book.md)
 
 ### Todo
 
-- Convert to markdown format
-- Finish the book
+- Finish the book!! (please help!!)
 
 ### License
 
