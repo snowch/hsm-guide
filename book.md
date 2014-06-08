@@ -190,22 +190,22 @@ code 02. The full list of HSM key pairs are listed in Table 2.1, “LMK Key Pair
 key pairs do not start at 00-01, instead the numbering starts at 04-05, and runs non-contiguously to 38-39.
 
 | Key Pair  | Code  |
-|---|---|
-| 04-05  | 00  |
-| 06-07  | 01  |
-| 14-15  | 02  |
-| 16-17  | 03  |
-| 18-19  | 04  |
-| 20-21  | 05  |
-| 22-23  | 06  |
-| 24-25  | 07  |
-| 26-27  | 08  |
-| 28-26  | 09  |
-| 30-31  | 10  |
-| 32-33  | 11  |
-| 34-35  | 12  |
-| 36-37  | 13  |
-| 38-39  | 14  |
+|-----------|-------|
+| 04-05     | 00    |
+| 06-07     | 01    |
+| 14-15     | 02    |
+| 16-17     | 03    |
+| 18-19     | 04    |
+| 20-21     | 05    |
+| 22-23     | 06    |
+| 24-25     | 07    |
+| 26-27     | 08    |
+| 28-26     | 09    |
+| 30-31     | 10    |
+| 32-33     | 11    |
+| 34-35     | 12    |
+| 36-37     | 13    |
+| 38-39     | 14    |
 
 Each HSM has a unique set of LMK pairs that can be either randomly generated or loaded from smart cards. HSM users jealously guard the LMKs because the integrity of the key management security scheme depends upon them.
 
@@ -213,9 +213,27 @@ Each HSM has a unique set of LMK pairs that can be either randomly generated or 
 
 Back when the HSM had only a handful of LMK pairs, more than the type of keys that had to be encrypted, a way had to be found to ensure that different key types can be used but also provide a way to identify parity errors with these key types. Variants are an easy way to pseudo-multiply your LMK pairs. (TODO validate this)
 
-Keys are encrypted under LMK pairs using either the clear value of the LMK or a variant of the LMK. An LMK variant is created by performing a XOR operation with a value on the LMK key. For example, variant 1 of an LMK is created by XORing the LMK with the value 000000000000000000000000000000A6. The Thales HSM supports 10 variants for each LMK pair, with variant 0 being the clear LMK itself. The full list of variant calculation functions can be seen in Table 2.2, “LMK Variant Calculation Function”
+Keys are encrypted under LMK pairs using either the clear value of the LMK or a variant of the LMK. An LMK variant is created by performing a XOR operation with a value on the LMK key. For example, variant 1 of an LMK is created by XORing the LMK with the value 000000000000000000000000000000A6. The Thales HSM supports 10 variants for each LMK pair, with variant 0 being the clear LMK itself. The full list of variant calculation functions can be seen in the Table below.
 
 ![HSM Local Master Keys](/src/docbkx/images/HSM_LMK_Variants.png)
+
+| Variant number | Variant Calculation Function - XOR LMK with: |
+|---------|--------------------------------------------|
+| 0       | Not applicable - use clear value of LMK    |
+| 1       | 000000000000000000000000000000A6           |
+| 2       | 0000000000000000000000000000005A           |
+| 3       | 0000000000000000000000000000006A           |
+| 4       | 000000000000000000000000000000DE           |
+| 5       | 0000000000000000000000000000002B           |
+| 6       | 00000000000000000000000000000050           |
+| 7       | 00000000000000000000000000000074           |
+| 8       | 0000000000000000000000000000009C           |
+| 9       | 000000000000000000000000000000FA           |
+
+## Exercises
+
+TODO - what exercises could be performed on the Simulator around LMK Concepts?
+
 
 # Key Concepts
 
