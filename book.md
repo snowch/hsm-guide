@@ -1,4 +1,8 @@
-# Preface
+HSM Guide
+=========
+
+An introduction to HSMs.
+
 
 ## Authors
 
@@ -9,6 +13,8 @@
 ## Book License
 
 CC0 1.0 Universal
+
+# Preface
 
 ## About this book
 
