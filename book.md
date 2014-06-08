@@ -102,13 +102,72 @@ In this section, we will connect to the HSM Console and run a basic command, Que
 
 For a full list of console commands, refer to the *Console Reference Manual* which is available from Thales. Note that the Thales Simulator only implements a subset of the commands. A list of implemented console commands can be found here [http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands](http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands).
 
-#####  Connecting to the Console
+#####  Connecting with the Simulator Console
 
- 1. Start the simulator as described in Starting the Thales Simulator.
+In this section, we TODO describe what we are doing here
+
+ 1. Start the simulator as described in [Starting the Thales Simulator](TODO fix link)
  2. Click Connect to console.
- 3. Enter the command QH followed by ENTER. You should see something similar to this: TODO
- 
+ 3. Enter the command ```QH``` followed by ENTER. You should see something similar to this: TODO insert image
 
+#####  Connecting with a Java Client
+
+In this session, we connect to the HSM over TCP/IP using Java. When we connect using Java, we can send Host Commands to the HSM.
+
+In the code example, below, we send the command Perform Diagnostics (NC), and print the response
+to System.out.
+
+For a full treatment of Host Programming the Thales HSM, refer to the Thales documentation “Host
+Programmer’s Manual”. For a full list of Host Commands, refer to the Thales documentation “Host
+Command Reference Manual”
+
+```java
+package demo;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+public class Main {
+
+   /**
+   * Runs the Command "Perform Diagnostics (NC)" and
+   * prints the response to System.out
+   *
+   * An example response is:
+   *
+   * !0000ND007B44AC1DDEE2A94B0007-E000
+   */
+   public static void main(String[] args) throws Exception {
+
+      Socket socket = new Socket("127.0.0.1", 9998);
+
+      // by default the Thales Simulator has a header of 4 bytes
+      // so set these to 0000
+      String command = "0000NC";
+
+      // leave two bytes for inserting the command length
+      byte [] commandBuffer = (" " + command).getBytes();
+
+      // populate the command length
+      commandBuffer[0] = (byte) (command.length() / 256);
+      commandBuffer[1] = (byte) (command.length() % 256);
+
+      // Write the command to the HSM
+      OutputStream out = socket.getOutputStream();
+      BufferedOutputStream bufferedOut = new BufferedOutputStream(out, 1024);
+      bufferedOut.write(commandBuffer);
+      bufferedOut.flush();
+
+      // Read the response from the HSM
+      InputStream in = socket.getInputStream();
+      int result;
+      while ((result = in.read()) != -1) {
+         System.out.print((char)result);
+      }
+      socket.close();
+   }
+}
+```
 # HSM Local Master Keys (LMKs)
 
 
