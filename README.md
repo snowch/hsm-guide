@@ -1,13 +1,9 @@
 hsm-guide
 =========
 
-HSM documentation
+To view or edit the book source, go [here](https://github.com/snowch/hsm-guide/blob/master/book.md) (to edit, click on the *Edit* button)
 
-### To build
-
-To edit the book source, go [here](https://github.com/snowch/hsm-guide/blob/master/book.md) (click on the *Edit* button)
-
-To view the book, go [here](https://gitprint.com/snowch/hsm-guide/blob/master/book.md)
+To view the book in print format, go [here](https://gitprint.com/snowch/hsm-guide/blob/master/book.md)
 
 ### Todo
 
