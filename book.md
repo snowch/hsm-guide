@@ -170,7 +170,52 @@ public class Main {
 ```
 # HSM Local Master Keys (LMKs)
 
+## LMK Overview
 
+Local Master Keys are a set of DES or triple DES keys. They are stored securely in the HSM making it
+very difficult for an attacker to gain access to them. LMKs are the only keys that are stored in the HSM.
+
+LMKs are not used for encrypting data, but are instead used to encrypt and decrypt other keys as these
+enter or leave the HSM. LMKs are used to ensure that even if the data traffic between the HSM and an
+application is recorded, the clear values of any exchanged keys are not compromised.
+
+LMKs come in pairs and the Thales HSM contains several LMK pairs. Different LMK pairs are used to
+encrypt/decrypt different types of security keys. LMK pairs are identified by two numbers, for example
+LMK pair 04-05, LMK pair 14-15, etc. See the diagram below.
+
+![HSM Local Master Keys](/src/docbkx/images/HSM_LMK_Key_Pairs.png)
+
+Each LMK pair is assigned a code. LMK pair 04-05 is assigned code 00, while LMK pair 14-15 is assigned
+code 02. The full list of HSM key pairs are listed in Table 2.1, “LMK Key Pairs”, below. Note that HSM
+key pairs do not start at 00-01, instead the numbering starts at 04-05, and runs non-contiguously to 38-39.
+
+| Key Pair  | Code  |
+|---|---|
+| 04-05  | 00  |
+| 06-07  | 01  |
+| 14-15  | 02  |
+| 16-17  | 03  |
+| 18-19  | 04  |
+| 20-21  | 05  |
+| 22-23  | 06  |
+| 24-25  | 07  |
+| 26-27  | 08  |
+| 28-26  | 09  |
+| 30-31  | 10  |
+| 32-33  | 11  |
+| 34-35  | 12  |
+| 36-37  | 13  |
+| 38-39  | 14  |
+
+Each HSM has a unique set of LMK pairs that can be either randomly generated or loaded from smart cards. HSM users jealously guard the LMKs because the integrity of the key management security scheme depends upon them.
+
+## LMK Variants
+
+Back when the HSM had only a handful of LMK pairs, more than the type of keys that had to be encrypted, a way had to be found to ensure that different key types can be used but also provide a way to identify parity errors with these key types. Variants are an easy way to pseudo-multiply your LMK pairs. (TODO validate this)
+
+Keys are encrypted under LMK pairs using either the clear value of the LMK or a variant of the LMK. An LMK variant is created by performing a XOR operation with a value on the LMK key. For example, variant 1 of an LMK is created by XORing the LMK with the value 000000000000000000000000000000A6. The Thales HSM supports 10 variants for each LMK pair, with variant 0 being the clear LMK itself. The full list of variant calculation functions can be seen in Table 2.2, “LMK Variant Calculation Function”
+
+![HSM Local Master Keys](/src/docbkx/images/HSM_LMK_Variants.png)
 
 # Key Concepts
 
