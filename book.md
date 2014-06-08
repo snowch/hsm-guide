@@ -264,11 +264,15 @@ The Thales HSM uses two major formats when processing security keys. These are V
 
 The variant concept is similar to the one used to form LMK variants: a key is XORed with a value to form the key variant. Double-length keys are XORed with the value:
 
-```00000000000000A6 000000000000005A```
+```text
+00000000000000A6 000000000000005A
+```
 
 and triple-length keys are XORed with the value:
 
-```00000000000000A6 000000000000005A 000000000000006A```
+```text
+00000000000000A6 000000000000005A 000000000000006A
+```
 
 TODO: how does the variant concept differ to the LMK variant concept?
 
@@ -312,7 +316,7 @@ For local storage (e.g. on the application server using the ZMK), the ZMK is enc
 
 Two parties want to exchange a ZMK. One party generates a random ZMK using three clear components which are the following:
 
-```
+```text
 2CBF0D8FA4E66ECE 6B239E25B9BAD934
 B60825E3790D31CE 4A4AA74397461C13
 29BFE3C1D0C1E50B CD7038A42CFB160B
@@ -322,7 +326,7 @@ TODO: describe what is meant by clear components
 
 Each of these clear components are kept by a separate custodian that works for the first party and are delivered to different custodians of the second party. To create the complete ZMK, each custodian enters their component to the HSM which combines them to form the ZMK. Most typically, the clear components are simply XORed to form the ZMK. In the example, the ZMK value is:
 
-```
+```text
 B308CBAD0D2ABA0B EC1901C20207D32C
 ```
 
@@ -344,7 +348,7 @@ Generate three ZMK components using the console command Generate Component (GC).
 
 TODO: describe the various command options and how to choose which option values to use.
 
-```
+```text
 GC                         # User input
 Key length [1,2,3]: 2      # User input
 Key Type: 000              # User input
@@ -374,7 +378,7 @@ This step uses the FK command to generate the ZMK from the three ZMK components 
 
 TODO: describe the various command options and how to choose which option values to use.
 
-```
+```text
 FK                                      # User input
 Key length [1,2,3]: 2                   # User input
 Key Type: 000                           # User input
@@ -406,13 +410,13 @@ TODO: See “Exercise – Creating a ZPK” for hands on experience creating a Z
 
 Assume that the ZMK presented in the previous example has been exchanged between two parties. One party, then, generates a random ZPK equal to:
 
-```
+```text
 ADD3B5C7B576D3AE 38B90B7C0EB67A7C, KCV = CB59C0
 ```
 
 The party then encrypts this ZPK under the ZMK to safely transmit this to the other party. The ZPK under the ZMK is:
 
-```
+```text
 C9A62E96ADFB52A7 815BE8D7E730B24E, KCV = CB59C0
 ```
 
@@ -443,7 +447,7 @@ In this exercise, we create a Zone PIN Key (ZPK) using console commands.
 
 When prompted for the ZMK, use the encrypted ZMK value from the section called “Creating a Zone Master Key (ZMK)”.
 
-```
+```text
 KG
 Key length [1,2,3]: 2
 Key Type: 001
