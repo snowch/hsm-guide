@@ -61,7 +61,8 @@ shared between the HSMs. This chapter describes how keys are created and shared.
 to setup two demo sites with the Thales Simulator and generate and share keys between the demo sites.
 
 Chapter 5, Dynamic Key Exchange 
-TODO
+
+TODO describe other chapters
 
 # Introduction
 
@@ -189,7 +190,7 @@ LMKs come in pairs and the Thales HSM contains several LMK pairs. Different LMK 
 encrypt/decrypt different types of security keys. LMK pairs are identified by two numbers, for example
 LMK pair 04-05, LMK pair 14-15, etc. See the diagram below.
 
-![HSM Local Master Keys](/src/docbkx/images/HSM_LMK_Key_Pairs.png)
+![HSM Local Master Keys](HSM_LMK_Key_Pairs.png)
 
 Each LMK pair is assigned a code. LMK pair 04-05 is assigned code 00, while LMK pair 14-15 is assigned
 code 02. The full list of HSM key pairs are listed in Table 2.1, “LMK Key Pairs”, below. Note that HSM
@@ -221,7 +222,7 @@ Back when the HSM had only a handful of LMK pairs, more than the type of keys th
 
 Keys are encrypted under LMK pairs using either the clear value of the LMK or a variant of the LMK. An LMK variant is created by performing a XOR operation with a value on the LMK key. For example, variant 1 of an LMK is created by XORing the LMK with the value 000000000000000000000000000000A6. The Thales HSM supports 10 variants for each LMK pair, with variant 0 being the clear LMK itself. The full list of variant calculation functions can be seen in the Table below.
 
-![HSM Local Master Keys](/src/docbkx/images/HSM_LMK_Variants.png)
+![HSM Local Master Keys](HSM_LMK_Variants.png)
 
 | Variant number | Variant Calculation Function - XOR LMK with: |
 |---------|--------------------------------------------|
