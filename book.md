@@ -285,7 +285,171 @@ TODO - what exercises could be performed on the Simulator around LMK Concepts?
 
 # Secure Key Exchange
 
+## Overview
+
+To securely exchange information between two users using the DES encryption scheme, it is vital to securely share a set of initial keys. This role is fulfilled by the Zone Master Keys. Unlike an LMK which does not leave the HSM, ZMKs are intended to be shared between sites to create secure Zones. The ZMK is distributed manually between the sites. The ZMK allow future (data encrypting) keys to be automatically shared between sites by encrypting those future keys with the ZMK. In that regard, they work very much like the LMKs with the important exception that they can be shared between users.
+
+ZMKs have a key type code of 000 (they are encrypted under LMK pair 04-05 with a variant of 0).
+
+TODO diagram
+
+The transfer of the ZMK between sites is performed manually. The ZMK is shared in parts (components) so that no one person will see the key.
+
+TODO diagram
+
+The data encryption key is a Zone PIN Key (ZPK). The ZPK was historically used to encrypt PINs for transfer between sites (e.g. between Acquirer and Issuer).
+
+For local storage (e.g. on the application server using the ZMK), the ZMK is encrypted under one of the LMK keys.
+
+## Example - Secure Key Exchange
+
+Two parties want to exchange a ZMK. One party generates a random ZMK using three clear components which are the following:
+
+```
+2CBF0D8FA4E66ECE 6B239E25B9BAD934
+B60825E3790D31CE 4A4AA74397461C13
+29BFE3C1D0C1E50B CD7038A42CFB160B
+```
+
+TODO: describe what is meant by clear components
+
+Each of these clear components are kept by a separate custodian that works for the first party and are delivered to different custodians of the second party. To create the complete ZMK, each custodian enters their component to the HSM which combines them to form the ZMK. Most typically, the clear components are simply XORed to form the ZMK. In the example, the ZMK value is:
+
+```
+B308CBAD0D2ABA0B EC1901C20207D32C
+```
+
+When generating the ZMK, the first party also gives the KCV of the ZMK to the second party (for the example key the KCV is 6CE4CF). That way, the second party can verify the correct reception and data entry of the ZMK components.
+
+TODO: See “Exercise – Creating a ZMK” for hands on experience creating a ZMK.
+
+## Exercises
+
+### Creating a Zone Master Key (ZMK)
+
+In this exercise, we create a Zone Master Key (ZMK) using console commands.
+
+The ZMK is distributed manually as components. To create the ZMK, we first create three ZMK components.
+
+#### Generate the ZMK Components
+
+Generate three ZMK components using the console command Generate Component (GC). Repeat the command three times as shown below:
+
+TODO: describe the various command options and how to choose which option values to use.
+
+```
+GC                         # User input
+Key length [1,2,3]: 2      # User input
+Key Type: 000              # User input
+Key Scheme: U              # User input
+Clear Component: 79CD 2380 9B4F C1C4 7F9E FB2A DF2A 674A
+Encrypted Component: U 1BA5 185A FCF1 5A1B 274B E1E0 03B4 7C2A
+Key check value: 7A5B C7
+GC                         # User input
+Key length [1,2,3]: 2      # User input
+Key Type: 000              # User input
+Key Scheme: U              # User input
+Clear Component: 0157 B3DF 6116 3402 372C 54FD 62F2 1C91
+Encrypted Component: U FCE4 7AF7 FFF8 9F40 2407 A35A F063 D3E1
+Key check value: 1E79 CB
+GC                         # User input
+Key length [1,2,3]: 2      # User input
+Key Type: 000              # User input
+Key Scheme: U              # User input
+Clear Component: 7AEA B5A4 1A9E 9B68 EF80 494C 0819 4ADA
+Encrypted Component: U EE8D 4F9E C8B2 ADF4 9CD2 F0D2 7F5C 95C5
+Key check value: 277A 5F
+```
+
+#### Generate the ZMK from the components
+
+This step uses the FK command to generate the ZMK from the three ZMK components previously generated:
+
+TODO: describe the various command options and how to choose which option values to use.
+
+```
+FK                                      # User input
+Key length [1,2,3]: 2                   # User input
+Key Type: 000                           # User input
+Key Scheme: U                           # User input
+Component type [X,H,E,S]: E             # User input
+Enter number of components (2-9): 3     # User input
+Enter component #1: U 1BA5 185A FCF1 5A1B 274B E1E0 03B4 7C2A
+Enter component #2: U FCE4 7AF7 FFF8 9F40 2407 A35A F063 D3E1
+Enter component #3: U EE8D 4F9E C8B2 ADF4 9CD2 F0D2 7F5C 95C5
+Encrypted key: U 104C 4216 A751 FEEE FF55 698B 26C5 7789
+Key check value: BA0F C3
+```
+
 # Dynamic Key Exchange
+
+## Overview
+
+TODO: Why dynamic key exchange?
+
+## Zone PIN Key (ZPK)
+
+The Zone PIN Key (ZPK) is a data encrypting key. It is used to encrypt the data that is transmitted in a security zone. For transfer between sites, the ZPK is encrypted under the ZMK. When stored locally (e.g. on the application server), the ZPK is encrypted using one of the LMK Keys.
+
+ZPKs have a key type code of 001 (encrypted under LMK pair 06-07 with a variant of 0).
+
+TODO: See “Exercise – Creating a ZPK” for hands on experience creating a ZPK.
+
+### Example - Dynamic Key Exchange
+
+Assume that the ZMK presented in the previous example has been exchanged between two parties. One party, then, generates a random ZPK equal to:
+
+```
+ADD3B5C7B576D3AE 38B90B7C0EB67A7C, KCV = CB59C0
+```
+
+The party then encrypts this ZPK under the ZMK to safely transmit this to the other party. The ZPK under the ZMK is:
+
+```
+C9A62E96ADFB52A7 815BE8D7E730B24E, KCV = CB59C0
+```
+
+## Key Translation
+
+In our previous example, the value C9A62E96ADFB52A7 815BE8D7E730B24E represents the randomly created ZPK encrypted under the previously created ZMK. But imagine that one of the parties that have exchanged this ZPK needs to transmit it to another party with which they share a different ZMK which we’ll call ZMK2 . To properly transmit the ZPK to the other zone that is secured with ZMK2, the ZPK has to be:
+
+- Decrypted under ZMK.
+- Encrypted under ZMK2.
+
+This process is called key translation. Key translation does not happen with specific key types as the ZMK that was used in the previous example but is a more general process - for example it is possible to translate a key from encryption under the ZMK to encryption under an LMK.
+
+Key translation always takes place within the HSM to avoid exposing the clear value of the key being translated.
+
+## Translating a ZPK (between ZMK encryption and LMK encryption)
+
+The HSM provides functionality to translate a ZPK between ZMK and LMK. This is used when a ZPK is received by Site B. In this case, Site A sends the ZPK encrypted with the ZMK to Site B. Site B translates the ZPK to LMK encryption.
+
+The ZPK under LMK encryption is used for encrypting/decrypting the data sent between the sites.
+
+TODO: insert diagram
+
+### Exercises
+
+#### Creating a Zone PIN Key (ZPK)
+
+In this exercise, we create a Zone PIN Key (ZPK) using console commands.
+
+When prompted for the ZMK, use the encrypted ZMK value from the section called “Creating a Zone Master Key (ZMK)”.
+
+```
+KG
+Key length [1,2,3]: 2
+Key Type: 001
+Key Scheme (LMK): U
+Key Scheme (ZMK) [ENTER FOR NONE]: X
+Enter encrypted ZMK [ENTER FOR NONE]: U 104C 4216 A751 FEEE FF55 698B 26C5 7789
+Enter ZMK check value [ENTER TO SKIP CV TEST]:
+Key under LMK: U 8586 51EC 83AF CA66 8175 804F 5B7D CD6B
+Key encrypted for transmission: X BAA5 18AA D10D 28A2 D32A 5688 317F 44EB
+Key check value: 6543 F4
+```
+
+
 
 # PIN block creation (clear PIN blocks)
 
