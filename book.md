@@ -234,8 +234,54 @@ Keys are encrypted under LMK pairs using either the clear value of the LMK or a 
 
 TODO - what exercises could be performed on the Simulator around LMK Concepts?
 
-
 # Key Concepts
+
+## Key Types
+
+Each different key supported by the Thales HSM has a unique code called the key type code. The key type is a three-digit number and is made up from the code of the LMK pair and the LMK variant. Therefore, keys encrypted under LMK pair 04-05 using a variant 1 will have a key type equal to “00” + “1” = 001. It is important to understand key types since several Thales commands expect key type codes as parameters. The full list of key types can be seen in the table below.
+
+| LMK Key Pair | LMK Code | Variant | Key Type Code | Key Type |
+|--------------|----------|---------|---------------|----------|
+| 04-05        | 00       | 0       | 000           | ZMK      |
+| 04-05        | 00       | 1       | 001           | ZPK      |
+
+## Key Check Value
+
+The check value of a key is derived by DES encrypting (how many?) zeroes using that key. For example, the KCV for key 0123456789ABCDEF is D5D44FF720683D0D
+
+The purpose of a KCV is to ensure that a key has been correctly transmitted between different parties and that they key is also configured correctly in systems. It is common practice to transmit the KCV of a key along with the key itself. Sometimes, the complete result of the DES encrypt operation is used, but typically only the first six digits are used (in the example, D5D44F).
+
+## Key Formats
+
+The Thales HSM uses two major formats when processing security keys. These are Variant and ANSI.
+
+The variant concept is similar to the one used to form LMK variants: a key is XORed with a value to form the key variant. Double-length keys are XORed with the value:
+
+```00000000000000A6 000000000000005A```
+
+and triple-length keys are XORed with the value:
+
+```00000000000000A6 000000000000005A 000000000000006A```
+
+TODO: how does the variant concept differ to the LMK variant concept?
+
+The ANSI format is much simpler: a key is used as-is without performing any additional operations on it.
+
+## Key Scheme
+
+Depending on their length and key format, keys are designated by a key scheme that helps to quickly identify the nature of a key. Key schemes are the following:
+
+| Key Scheme | Description |
+|------------|-------------|
+| Z          | Single-length ANSI keys |
+| U          | Double-length variant keys |
+| T          | Triple-length variant keys |
+| X          | Double-length ANSI keys |
+| Y          | Triple-length ANSI keys| 
+
+## Exercises
+
+TODO - what exercises could be performed on the Simulator around LMK Concepts?
 
 # Secure Key Exchange
 
