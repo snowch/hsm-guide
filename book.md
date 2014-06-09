@@ -106,8 +106,10 @@ In this exercise, you will download, install and run the Thales Simulator on a W
 
  1. Navigate to the folder where you installed the Simulator (E.g. ```C:\Program Files (x86)\NTG\Thales Simulator\```)
  2. Execute ThalesWinSimulator.exe (if your are running Windows 7, right click the file and select Run As Administrator)
- 3. Click the Start Simulator button. TODO: insert image.
- 4. In the Application Events window, the simulator will inform you that it could not find a file containing the LMK keys so it will create a new set of keys for you. When the simulator creates new keys in this manner, the same keys will always be created. TODO: insert image.
+ 3. Click the Start Simulator button: ![Start Button](./SimulatorStartButton.png)
+ 4. In the Application Events window, the simulator will inform you that it could not find a file containing the LMK keys so it will create a new set of keys for you. The Simulator will always create the same keys. ![New Keys](./NewKeysImage.png)
+
+
 
 #### Using the Simulator Console
 
