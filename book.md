@@ -128,30 +128,9 @@ In this section, we ... TODO describe what we are doing here
  4. Enter the command ```QH``` followed by ENTER. 
  5. You should see something similar to this ![Console Button](./QHCommandOutput.png)
 
-#####  Connecting with a Unix client
-
-If you have netcat (nc) installed, you can run a command by using echo convert a hex string to binary and send it to the Thales simulator using netcat.
-
-Here we send the Thales command ```NC``` which asks the Thales Simulator to Perform Diagnostics and return the result:
-
-```
-$ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
-!0000ND007B44AC1DDEE2A94B0007-E000
-```
-
-Where the string \x00\x06\x30\x30\x30\x30\x4e\x43 is broken down as follows (in reverse order):
-
-- ```\x``` tells echo the next two characters are a hex byte
-- ```4e43``` is the 2 byte command ```NC``` as hex
-- ```30303030``` adds a 4 byte header 0000 as hex
-- ```0006``` represents the length in hex of the comamnd and header (i.e. the length of 0000NC)
-
-
-```!0000ND007B44AC1DDEE2A94B0007-E000``` is the response from the HSM.
-
 #####  Connecting with a Perl Client
 
-If you have perl installed, you can run a command against the HSM as follows:
+If you have perl installed, you can run the ```NC``` command against the HSM as follows:
 
 ```perl
 #!/usr/bin/env perl
@@ -161,7 +140,11 @@ $sock->send(pack "H*","0006303030304e43");
 $sock->recv($data, 1024); print $data;
 ```
 
-See the description from [Connecting with a unix client](/book.md#connecting-with-a-unix-client) for the format of the command: ```0006303030304e43```.
+Where the string ```0006303030304e43``` is broken down as follows (in reverse order):
+
+- ```4e43``` is the 2 byte command ```NC``` as hex
+- ```30303030``` adds a 4 byte header 0000 as hex
+- ```0006``` represents the length in hex of the comamnd and header (i.e. the length of 0000NC)
 
 #####  Connecting with a Java Client
 
@@ -221,6 +204,20 @@ public class Main {
    }
 }
 ```
+
+#####  Connecting with a Unix client
+
+If you have netcat (nc) installed, you can run a command by using echo convert a hex string to binary and send it to the Thales simulator using netcat.
+
+Here we send the Thales command ```NC``` which asks the Thales Simulator to Perform Diagnostics and return the result:
+
+```
+$ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
+!0000ND007B44AC1DDEE2A94B0007-E000
+```
+
+See the description from [Connecting with a perl client](/book.md#connecting-with-a-perl-client) for the format of the command: ```0006303030304e43```.
+
 # HSM Local Master Keys (LMKs)
 
 ## LMK Overview
