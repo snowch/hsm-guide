@@ -117,7 +117,7 @@ In this section, we TODO describe what we are doing here
  2. Click Connect to console.
  3. Enter the command ```QH``` followed by ENTER. You should see something similar to this: TODO insert image
 
-#####  Connecting with unix client
+#####  Connecting with a Unix client
 
 If you have netcat (nc) installed, you can run a command against the HSM as follows:
 
@@ -147,7 +147,7 @@ $sock->send(pack "H*","0006303030304e43");
 $sock->recv($data, 1024); print $data;
 ```
 
-See the description from [Connecting with unix client](/book.md#connecting-with-a-unix-client) for the format of the command: ```0006303030304e43```.
+See the description from [Connecting with a unix client](/book.md#connecting-with-a-unix-client) for the format of the command: ```0006303030304e43```.
 
 #####  Connecting with a Java Client
 
