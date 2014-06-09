@@ -119,11 +119,13 @@ For a full list of console commands, refer to the *Console Reference Manual* whi
 
 #####  Connecting with the Simulator Console
 
-In this section, we TODO describe what we are doing here
+In this section, we ... TODO describe what we are doing here
 
- 1. Start the simulator as described in [Starting the Thales Simulator](TODO fix link)
- 2. Click Connect to console.
- 3. Enter the command ```QH``` followed by ENTER. You should see something similar to this: TODO insert image
+ 1. Start the simulator as described in [Starting the Thales Simulator](./book.md#starting-the-thales-simulator)
+ 2. Click The Console button ![Console Button](./ConnectToConsoleButton.png)
+ 3. In the console window click *Connect to Console*.
+ 4. Enter the command ```QH``` followed by ENTER. 
+ 5. You should see something similar to this ![Console Button](./QHCommandOutput.png)
 
 #####  Connecting with a Unix client
 
