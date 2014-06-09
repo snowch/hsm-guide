@@ -121,7 +121,7 @@ In this section, we TODO describe what we are doing here
 
 If you have netcat (nc) installed, you can run a command against the HSM as follows:
 
-```shell
+```
 $ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
 !0000ND007B44AC1DDEE2A94B0007-E000
 ```
