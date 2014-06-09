@@ -110,12 +110,13 @@ In this exercise, you will download, install and run the Thales Simulator on a W
  4. In the Application Events window, the simulator will inform you that it could not find a file containing the LMK keys so it will create a new set of keys for you. The Simulator will always create the same keys. ![New Keys](./NewKeysImage.png)
 
 
-
 #### Using the Simulator Console
 
 In this section, we will connect to the HSM Console and run a basic command, Query Host (QH) to test connectivity to the HSM.
 
-For a full list of console commands, refer to the *Console Reference Manual* which is available from Thales. Note that the Thales Simulator only implements a subset of the commands. A list of implemented console commands can be found here [http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands](http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands).
+For a full list of console commands, you will need to refer to the *Console Reference Manual* which is available from Thales.
+
+Note: The Thales Simulator only implements a subset of the commands. A list of implemented console commands can be found  [here](http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands).
 
 #####  Connecting with the Simulator Console
 
