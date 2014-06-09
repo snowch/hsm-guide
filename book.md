@@ -81,15 +81,21 @@ TODO: Why digital key management? Life without a HSM?
 TODO: Key encrypting Key versus Data Encrypting Key
 TODO: Thales Simulator project overview.
 
-## Thales History and Versions
+## Thales HSM History and Versions
+
+TODO provide a brief history of THales HSMs and an overview of current HSM versions.
 
 ## Introduction to the Thales Simulator
 
+TODO introduce the Thales Simulator
+
 ## Thales Simulator Exercises
+
+This section provides some exercises to get hands on experience using the Thales Simulator.
 
 ### Setting up the Thales Simulator
 
-In this exercise, you will download, install and run the Thales Simulator on a Windows machine.  The purpose of this exercise is to get the Thales Simulator setup ready for use in later chapters.
+In this exercise, you will download, install and run the Thales Simulator on a Windows machine.  The purpose of this exercise is to get the Thales Simulator setup and ready for use in later chapters.
 
 #### Download and Install the Thales Simulator
 
