@@ -117,6 +117,38 @@ In this section, we TODO describe what we are doing here
  2. Click Connect to console.
  3. Enter the command ```QH``` followed by ENTER. You should see something similar to this: TODO insert image
 
+#####  Connecting with unix client
+
+If you have netcat (nc) installed, you can run a command against the HSM as follows:
+
+```shell
+$ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
+!0000ND007B44AC1DDEE2A94B0007-E000
+```
+
+Where the command 0006303030304e43 is broken down as follows:
+
+- ```\x``` = tells echo the next two characters are a hex byte
+- ```0006``` = the command length in hex (i.e. length of 0000NC)
+- ```30303030``` = the 4 byte header 0000 in hex
+- ```4e43``` = the 2 byte command NC in hex
+
+```!0000ND007B44AC1DDEE2A94B0007-E000``` is the response from the HSM.
+
+#####  Connecting with a Perl Client
+
+If you have perl installed, you can run a command against the HSM as follows:
+
+```perl
+#!/usr/bin/env perl
+use IO::Socket::INET; 
+my $sock = new IO::Socket::INET(PeerAddr=>"localhost:9998") or die; 
+$sock->send(pack "H*","0006303030304e43"); 
+$sock->recv($data, 1024); print $data;
+```
+
+See the description from [Connecting with unix client](/book.md#connecting-with-a-unix-client) for the format of the command: ```0006303030304e43```.
+
 #####  Connecting with a Java Client
 
 In this session, we connect to the HSM over TCP/IP using Java. When we connect using Java, we can send Host Commands to the HSM.
