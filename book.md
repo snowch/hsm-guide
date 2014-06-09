@@ -130,14 +130,16 @@ In this section, we ... TODO describe what we are doing here
 
 #####  Connecting with a Unix client
 
-If you have netcat (nc) installed, you can run a command against the HSM as follows:
+If you have netcat (nc) installed, you can run a command by using echo convert a hex string to binary and send it to the Thales simulator using netcat.
+
+Here we send the Thales command ```NC``` which asks the Thales Simulator to Perform Diagnostics and return the result:
 
 ```
 $ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
 !0000ND007B44AC1DDEE2A94B0007-E000
 ```
 
-Where the command 0006303030304e43 is broken down as follows:
+Where the string 0006303030304e43 is broken down as follows:
 
 - ```\x``` = tells echo the next two characters are a hex byte
 - ```0006``` = the command length in hex (i.e. length of 0000NC)
