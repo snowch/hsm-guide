@@ -139,12 +139,13 @@ $ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
 !0000ND007B44AC1DDEE2A94B0007-E000
 ```
 
-Where the string 0006303030304e43 is broken down as follows:
+Where the string \x00\x06\x30\x30\x30\x30\x4e\x43 is broken down as follows (in reverse order):
 
-- ```\x``` = tells echo the next two characters are a hex byte
-- ```0006``` = the command length in hex (i.e. length of 0000NC)
-- ```30303030``` = the 4 byte header 0000 in hex
-- ```4e43``` = the 2 byte command NC in hex
+- ```\x``` tells echo the next two characters are a hex byte
+- ```4e43``` is the 2 byte command ```NC``` as hex
+- ```30303030``` adds a 4 byte header 0000 as hex
+- ```0006``` represents the length in hex of the comamnd and header (i.e. the length of 0000NC)
+
 
 ```!0000ND007B44AC1DDEE2A94B0007-E000``` is the response from the HSM.
 
