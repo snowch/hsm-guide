@@ -130,7 +130,7 @@ In this section, we ... TODO describe what we are doing here
 
 #####  Connecting with a Perl Client
 
-If you have perl installed, you can run the ```NC``` command against the HSM as follows:
+If you have perl installed, you can run the ```NC``` (Perform diagnostics) command against the HSM as follows:
 
 ```perl
 #!/usr/bin/env perl
@@ -145,6 +145,14 @@ Where the string ```0006303030304e43``` is broken down as follows (in reverse or
 - ```4e43``` is the 2 byte command ```NC``` as hex
 - ```30303030``` adds a 4 byte header 0000 as hex
 - ```0006``` represents the length in hex of the comamnd and header (i.e. the length of 0000NC)
+
+The command should output a response similar to the following:
+
+```
+!0000ND007B44AC1DDEE2A94B0007-E000
+```
+
+TODO - describe what this response means.
 
 #####  Connecting with a Java Client
 
