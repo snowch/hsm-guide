@@ -88,6 +88,7 @@ TODO provide a brief history of THales HSMs and an overview of current HSM versi
 ## Introduction to the Thales Simulator
 
 TODO introduce the Thales Simulator
+TODO what are the different command types, console and host
 
 ## Thales Simulator Exercises
 
@@ -125,12 +126,16 @@ In this section, we ... TODO describe what we are doing here
  1. Start the simulator as described in [Starting the Thales Simulator](./book.md#starting-the-thales-simulator)
  2. Click The Console button ![Console Button](./ConnectToConsoleButton.png)
  3. In the console window click *Connect to Console*.
- 4. Enter the command ```QH``` followed by ENTER. 
+ 4. Enter the *console* command ```QH``` followed by ENTER. 
  5. You should see something similar to this ![Console Button](./QHCommandOutput.png)
+ 
+In this exercise, we executed a console command ```QH``` against the simulator and observed the response that was displayed by the simulator.
 
 #####  Connecting with a Perl Client
 
-If you have perl installed, you can run the ```NC``` (Perform diagnostics) command against the HSM as follows:
+In this exercise, we execute a host command against the Thales Simulator.
+
+If you have perl installed, you can run the ```NC``` (Perform diagnostics) host command against the HSM as follows:
 
 ```perl
 #!/usr/bin/env perl
