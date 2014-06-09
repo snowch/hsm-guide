@@ -29,7 +29,7 @@ wishing to learn the basics or just wanting to refresh their knowledge in the fi
 This book is developed by the community - please send me your contributions.
 
  - The source of this book is available [here](https://github.com/snowch/hsm-guide/blob/master/book.md)
- - You can view the print version of the book here: https://gitprint.com/snowch/hsm-guide/blob/master/book.md
+ - You can view the print version of the book [here](https://gitprint.com/snowch/hsm-guide/blob/master/book.md)
 
 ## Audience
 
