@@ -293,14 +293,31 @@ TODO - what exercises could be performed on the Simulator around LMK Concepts?
 
 Each different key supported by the Thales HSM has a unique code called the key type code. The key type is a three-digit number and is made up from the code of the LMK pair and the LMK variant. Therefore, keys encrypted under LMK pair 04-05 using a variant 1 will have a key type equal to “00” + “1” = 001. It is important to understand key types since several Thales commands expect key type codes as parameters. The full list of key types can be seen in the table below.
 
-| LMK Key Pair | LMK Code | Variant | Key Type Code | Key Type |
-|--------------|----------|---------|---------------|----------|
-| 04-05        | 00       | 0       | 000           | ZMK      |
-| 04-05        | 00       | 1       | 001           | ZPK      |
+| LMK Key Pair | LMK Code | Variant | Key Type Code | Key Type      |
+|--------------|----------|---------|---------------|---------------|
+| 04-05        | 00       | 0       | 000           | ZMK           |
+| 06-07        | 01       | 0       | 001           | ZPK           |
+| 14-15        | 02       | 0       | 002           | PVK, TMK, TPK |
+| 14-15        | 02       | 4       | 402           | CVK, CSCK     |
+| 16-17        | 03       | 0       | 003           | TAK           |
+| 22-23        | 06       | 0       | 006           | WWK           |
+| 26-27        | 08       | 0       | 008           | ZAK           |
+| 28-29        | 09       | 0       | 009           | BDK1          |
+| 28-29        | 09       | 1       | 109           | MK-AC         |
+| 28-29        | 09       | 2       | 209           | MK-SMI        |
+| 28-29        | 09       | 3       | 309           | MK-SMC        |
+| 28-29        | 09       | 4       | 409           | MK-DAC        |
+| 28-29        | 09       | 5       | 509           | MK-DN         |
+| 28-29        | 09       | 6       | 609           | BDK2          |
+| 28-29        | 09       | 7       | 709           | MK-CVC3       |
+| 28-29        | 09       | 8       | 809           | BDK3          |
+| 30-31        | 0A       | 0       | 00A           | ZEK           |
+| 32-33        | 0B       | 0       | 00B           | DEK           |
+| 32-33        | 0B       | 3       | 30B           | TEK           |
 
 ## Key Check Value
 
-The check value of a key is derived by DES encrypting (how many?) zeroes using that key. For example, the KCV for key 0123456789ABCDEF is D5D44FF720683D0D
+The check value of a key is derived by DES encrypting 16 zeroes (8 zero bytes) using that key. For example, the KCV for key 0123456789ABCDEF is D5D44FF720683D0D
 
 The purpose of a KCV is to ensure that a key has been correctly transmitted between different parties and that they key is also configured correctly in systems. It is common practice to transmit the KCV of a key along with the key itself. Sometimes, the complete result of the DES encrypt operation is used, but typically only the first six digits are used (in the example, D5D44F).
 
@@ -360,7 +377,7 @@ For local storage (e.g. on the application server using the ZMK), the ZMK is enc
 
 ## Example - Secure Key Exchange
 
-Two parties want to exchange a ZMK. One party generates a random ZMK creating three clear  (i.e. unprotected) components which are the following:
+Two parties want to exchange a ZMK. One party generates a random ZMK using three clear components which are the following:
 
 ```text
 2CBF0D8FA4E66ECE 6B239E25B9BAD934
@@ -368,7 +385,9 @@ B60825E3790D31CE 4A4AA74397461C13
 29BFE3C1D0C1E50B CD7038A42CFB160B
 ```
 
-No individual or organisation should see all of the three clear components, so each of the clear components are kept by a separate custodian that works for the first party and are delivered to different custodians of the second party. To create the complete ZMK, each custodian enters their component to the HSM which combines them to form the ZMK. Most typically, the clear components are simply XORed to form the ZMK. In the example, the ZMK value is:
+TODO: describe what is meant by clear components
+
+Each of these clear components are kept by a separate custodian that works for the first party and are delivered to different custodians of the second party. To create the complete ZMK, each custodian enters their component to the HSM which combines them to form the ZMK. Most typically, the clear components are simply XORed to form the ZMK. In the example, the ZMK value is:
 
 ```text
 B308CBAD0D2ABA0B EC1901C20207D32C
