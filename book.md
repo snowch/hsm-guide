@@ -146,7 +146,7 @@ $sock->send(pack "H*","0006303030304e43");
 $sock->recv($data, 1024); print $data;
 ```
 
-The code simply opens a TCP connection to a Thales Simulator listening on ```localhost``` on port ```9998```.  Next the perl client convertns the string ```0006303030304e43``` from hexidecimal to binary and sends it to the Thales Simulator.  Finally the code receives the response and prints it to standard output.
+The code simply opens a TCP connection to a Thales Simulator listening on ```localhost``` on port ```9998```.  Next the perl client converts the string ```0006303030304e43``` from its hexidecimal format to binary and sends it to the Thales Simulator.  Finally the code receives the response and prints it to standard output.
 
 To understand the meaning of the string ```0006303030304e43```, it can be broken down as follows (in reverse order):
 
