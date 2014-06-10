@@ -9,8 +9,7 @@ An introduction to HSMs.
 - Chris Snow
 - Colin Cook
 - Nick Bitounis
-- Juris Lacis
-- Any other contributors
+- Any other interested contributors
 
 ## Book License
 
@@ -87,29 +86,10 @@ TODO: Thales Simulator project overview.
 
 TODO provide a brief history of THales HSMs and an overview of current HSM versions.
 
-## Thales HSM interaction
-
-There are two usage patterns for interacting with the HSM:
-
-![Console Command Use Case](./console_command_use_case.png)
- 
-![Host Command Use Case](./host_command_use_case.png)
-
-### Console Commands
-
-Console commands fall into the categories:
-
-- HSM diagnostics
-- Creating Keys
-- TODO what else?
-
-### Host Commands
-
-Host commands fall into the categories:
-
-- TODO
-
 ## Introduction to the Thales Simulator
+
+TODO introduce the Thales Simulator
+TODO what are the different command types, console and host
 
 ## Thales Simulator Exercises
 
@@ -245,8 +225,7 @@ Local Master Keys (LMKs) are a central concept for HSMs. This section describes 
 
 ## LMK Overview
 
-Local Master Keys are a set of DES or triple DES keys. They are stored securely in the HSM making it
-very difficult for an attacker to gain access to them. LMKs are the only keys that are stored in the HSM.
+Local Master Keys are a sets of 40 DES keys. They are stored securely in the HSM making it very difficult for an attacker to gain access to them. LMKs are the only keys that are stored in the HSM.
 
 LMKs are not used for encrypting data, but are instead used to encrypt and decrypt other keys as these
 enter or leave the HSM. LMKs are used to ensure that even if the data traffic between the HSM and an
@@ -334,6 +313,14 @@ Each different key supported by the Thales HSM has a unique code called the key 
 | 30-31        | 0A       | 0       | 00A           | ZEK           |
 | 32-33        | 0B       | 0       | 00B           | DEK           |
 | 32-33        | 0B       | 3       | 30B           | TEK           |
+
+In the latest payShield9000 HSMs Thales has introduced second, PCI-HSM standard compliant, key type table with the changes around 002 key type - PVK, TMK, TPK. The changes moves TMK and TPK to different LMK pair and Variants leaving PVK the only key of 002 type:
+
+| LMK Key Pair | LMK Code | Variant | Key Type Code | Key Type      |
+|--------------|----------|---------|---------------|---------------|
+| 14-15        | 02       | 0       | 002           | PVK           |
+| 36-37        | 0D       | 7       | 70D           | TPK           |
+| 36-37        | 0D       | 8       | 80D           | TMK           |
 
 ## Key Check Value
 
