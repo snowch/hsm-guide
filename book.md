@@ -180,7 +180,16 @@ The command should output a response similar to the following:
 !0000ND007B44AC1DDEE2A94B0007-E000
 ```
 
-TODO - describe what this response is telling us.
+The response from HSM can be brouken down as follows:
+
+- ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
+- ```0000``` is HSM response header which is set the same as for received command
+- ```ND``` the response code. The response from HSM always is command code with incremented second letter
+- ```00``` error code, ```00``` means that no errors occured during command processing
+- ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
+- ```0007-E000``` means the HSM firmware revision number
+
+Each command has its own response specification.
 
 #####  Connecting with a Java Client
 
