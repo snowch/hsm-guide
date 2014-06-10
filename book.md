@@ -146,11 +146,13 @@ $sock->send(pack "H*","0006303030304e43");
 $sock->recv($data, 1024); print $data;
 ```
 
-Where the string ```0006303030304e43``` is broken down as follows (in reverse order):
+The code simply opens a TCP connection to a Thales Simulator listening on ```localhost``` on port ```9998```.  Next the perl client convertns the string ```0006303030304e43``` from hexidecimal to binary and sends it to the Thales Simulator.  Finally the code receives the response and prints it to standard output.
+
+To understand the meaning of the string ```0006303030304e43```, it can be broken down as follows (in reverse order):
 
 - ```4e43``` is the 2 byte command ```NC``` as hex
-- ```30303030``` adds a 4 byte header 0000 as hex
-- ```0006``` represents the length in hex of the comamnd and header (i.e. the length of 0000NC)
+- ```30303030``` adds a 4 byte header ```0000``` as hex
+- ```0006``` represents the length in hex of the comamnd and header (i.e. the length of ```0000NC```)
 
 The command should output a response similar to the following:
 
@@ -158,7 +160,7 @@ The command should output a response similar to the following:
 !0000ND007B44AC1DDEE2A94B0007-E000
 ```
 
-TODO - describe what this response means.
+TODO - describe what this response is telling us.
 
 #####  Connecting with a Java Client
 
