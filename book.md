@@ -373,7 +373,7 @@ For local storage (e.g. on the application server using the ZMK), the ZMK is enc
 
 ## Example - Secure Key Exchange
 
-Two parties want to exchange a ZMK. One party generates a random ZMK using three clear components which are the following:
+Two parties want to exchange a ZMK. One party generates a random ZMK creating three clear  (i.e. unprotected) components which are the following:
 
 ```text
 2CBF0D8FA4E66ECE 6B239E25B9BAD934
@@ -381,9 +381,7 @@ B60825E3790D31CE 4A4AA74397461C13
 29BFE3C1D0C1E50B CD7038A42CFB160B
 ```
 
-TODO: describe what is meant by clear components
-
-Each of these clear components are kept by a separate custodian that works for the first party and are delivered to different custodians of the second party. To create the complete ZMK, each custodian enters their component to the HSM which combines them to form the ZMK. Most typically, the clear components are simply XORed to form the ZMK. In the example, the ZMK value is:
+No individual or organisation should see all of the three clear components, so each of the clear components are kept by a separate custodian that works for the first party and are delivered to different custodians of the second party. To create the complete ZMK, each custodian enters their component to the HSM which combines them to form the ZMK. Most typically, the clear components are simply XORed to form the ZMK. In the example, the ZMK value is:
 
 ```text
 B308CBAD0D2ABA0B EC1901C20207D32C
