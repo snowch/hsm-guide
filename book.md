@@ -86,10 +86,29 @@ TODO: Thales Simulator project overview.
 
 TODO provide a brief history of THales HSMs and an overview of current HSM versions.
 
-## Introduction to the Thales Simulator
+## Thales HSM interaction
 
-TODO introduce the Thales Simulator
-TODO what are the different command types, console and host
+There are two usage patterns for interacting with the HSM:
+
+![Console Command Use Case](./console_command_use_case.png)
+ 
+![Host Command Use Case](./host_command_use_case.png)
+
+### Console Commands
+
+Console commands fall into the categories:
+
+- HSM diagnostics
+- Creating Keys
+- TODO what else?
+
+### Host Commands
+
+Host commands fall into the categories:
+
+- TODO
+
+## Introduction to the Thales Simulator
 
 ## Thales Simulator Exercises
 
