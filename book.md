@@ -221,6 +221,8 @@ See the description from [Connecting with a perl client](/book.md#connecting-wit
 
 # HSM Local Master Keys (LMKs)
 
+Local Master Keys (LMKs) are a central concept for HSMs. This section describes LMKs in more detail.
+
 ## LMK Overview
 
 Local Master Keys are a set of DES or triple DES keys. They are stored securely in the HSM making it
