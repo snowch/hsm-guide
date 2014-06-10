@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.custom.Systemborder</type>
+    <coordinates>
+      <x>440</x>
+      <y>110</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>HSM</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.Systemborder</type>
+    <coordinates>
+      <x>60</x>
+      <y>110</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Client
+Application
+Code</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>130</x>
+      <y>110</y>
+      <w>330</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>host commands&gt;</panel_attributes>
+    <additional_attributes>310;50;30;50</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>170</x>
+      <y>240</y>
+      <w>260</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Client applications interact with the HSM using host commands that are sent to the HSM over a network connection using either TCP/IP or UDP/IP.
+elementstyle=wordwrap
+fg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
