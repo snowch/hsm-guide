@@ -174,43 +174,27 @@ Programmer’s Manual”. For a full list of Host Commands, refer to the Thales 
 Command Reference Manual”
 
 ```java
-package demo;
 import java.io.BufferedOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 public class Main {
 
-   /**
-   * Runs the Command "Perform Diagnostics (NC)" and
-   * prints the response to System.out
-   *
-   * An example response is:
-   *
-   * !0000ND007B44AC1DDEE2A94B0007-E000
-   */
    public static void main(String[] args) throws Exception {
 
-      Socket socket = new Socket("127.0.0.1", 9998);
+      Socket socket = new Socket("localhost", 9998);
 
-      // by default the Thales Simulator has a header of 4 bytes
-      // so set these to 0000
-      String command = "0000NC";
+      String command = "0006303030304e43";
+      
+      // the following line converts the hex command string to a byte array
+      byte[] bytes = ByteBuffer.allocate(8).putLong(Long.parseLong(command, 16)).array();
 
-      // leave two bytes for inserting the command length
-      byte [] commandBuffer = (" " + command).getBytes();
-
-      // populate the command length
-      commandBuffer[0] = (byte) (command.length() / 256);
-      commandBuffer[1] = (byte) (command.length() % 256);
-
-      // Write the command to the HSM
       OutputStream out = socket.getOutputStream();
       BufferedOutputStream bufferedOut = new BufferedOutputStream(out, 1024);
-      bufferedOut.write(commandBuffer);
+      bufferedOut.write(bytes);
       bufferedOut.flush();
 
-      // Read the response from the HSM
       InputStream in = socket.getInputStream();
       int result;
       while ((result = in.read()) != -1) {
@@ -220,6 +204,7 @@ public class Main {
    }
 }
 ```
+See the description from [Connecting with a perl client](/book.md#connecting-with-a-perl-client) for the format of the command: ```0006303030304e43```.
 
 #####  Connecting with a Unix client
 
