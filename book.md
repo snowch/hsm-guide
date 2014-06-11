@@ -9,7 +9,8 @@ An introduction to HSMs.
 - Chris Snow
 - Colin Cook
 - Nick Bitounis
-- Any other interested contributors
+- Juris Lacis
+- Other contributors ...
 
 ## Book License
 
