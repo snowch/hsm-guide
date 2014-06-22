@@ -302,7 +302,7 @@ Some of the most commonly used hash functions:
 
 ![Hash functions](Hashing_algorithms.png)
 
-MAC functions also called keyed hash functions are the cryptographic based message authentication functions to produce the short output check summ over the message used to ensure, that the message was not modified during transmission. In contradistinction to hash functions, MACs are generated using cryptographic algorithms and secret keys.
+MAC functions also called keyed hash functions are the cryptographic based message authentication functions to produce the short output check summ over the message used to ensure, that the message was not modified during transmission. In contradistinction to hash functions, MACs are generated using cryptographic algorithms and secret keys. The MAC can be securely applied to plain text messages without message encryption because it uses cryptographic keys to produce MAC.
 
 The most commonly used MAC algorithms are defined in ISO-9797 standard.
 
