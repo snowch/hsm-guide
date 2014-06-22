@@ -324,7 +324,7 @@ The example of PKCS#5 padding for incomplete message:
 
 The example of PKCS#5 padding for complete 8 byte message:
 
-![PKCS#5 padding for complete message](PKCS#5_padding_complete.png)
+![PKCS#5 padding for complete message](PKCS5_padding_complete.png)
 
 # HSM Local Master Keys (LMKs)
 
