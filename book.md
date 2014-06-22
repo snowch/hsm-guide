@@ -329,6 +329,11 @@ The example of PKCS#5 padding for complete 8 byte message:
 The example of PKCS#5 padding on Java:
 
 ```java
+/* 
+ * since different symmetric algoritms have different input data block sizes
+ * the blockSize variable is passed to the methods
+ */
+
 public byte[] pkcs5Pad(byte[] block, int bloclSize) {
 	int padLen = bloxkSize - block.length % blockSize;
 	int padVal = (byte)padLen;
