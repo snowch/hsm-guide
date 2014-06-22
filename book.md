@@ -264,7 +264,7 @@ The authentication functions are used to ensure, that the message was not modifi
 
 ![Authentication functions](Authentication_functions.png)
 
-## Encryption functions
+### Encryption functions
 
 Encryption functions are devided into two classes, symmetric and asymmetric. 
 
@@ -289,7 +289,7 @@ Some of the most commonly used asymmetric algorithms are:
 
 ![Asymmetric algorithms](Asymmetric_algorithms.png)
 
-## Message authentication functions
+### Message authentication functions
 
 Authentication functions are devided into 2 classes, hash and MAC.
 
