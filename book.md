@@ -326,6 +326,29 @@ The example of PKCS#5 padding for complete 8 byte message:
 
 ![PKCS#5 padding for complete message](PKCS5_padding_complete.png)
 
+The example of PKCS#5 padding on Java:
+
+```java
+public byte[] pkcs5Pad(byte[] block, int bloclSize) {
+	int padLen = bloxkSize - block.length % blockSize;
+	int padVal = (byte)padLen;
+	byte[] paddedBlock = new byte[block.length + padLen];
+	System.arraycopy(block, 0, paddedBlock, 0, block.length);
+	for (int k = 0; k < padLen; k++) {
+		paddedBlock[(block.length + k)] = padVal;
+	}
+	return paddedBlock;
+}
+
+public byte[] pkcs5Unpad(byte[] paddedBlock, int blockSize) {
+	int padLen = paddedBlock[(paddedBlock.length - 1)];
+	int plainLen = paddedBlock.length - padLen;
+	byte[] plainBlock = new byte[plainLen];
+	System.arraycopy(paddedBlock, 0, plainBlock, 0, plainLen);
+	return arrayOfByte;
+} 
+```
+
 # HSM Local Master Keys (LMKs)
 
 Local Master Keys (LMKs) are a central concept for HSMs. This section describes LMKs in more detail.
