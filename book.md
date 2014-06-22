@@ -356,9 +356,21 @@ public byte[] pkcs5Unpad(byte[] paddedBlock, int blockSize) {
 
 #### ISO-9797 Method 1 padding
 
-ISO-9797 Method 1 padding is used for message MACing. This method adds zero bytes to the end of message until it meets the length requirements. It is not necessery to add an additional block of padding if a message meets length requirements. Method One padding can not be used for message encryption because it is impossible to differentiate padding bytes from the message content. 
+ISO-9797 Method One padding is used for message MACing. This method adds zero bytes to the end of message until it meets the length requirements. It is not necessery to add an additional block of padding if a message meets length requirements. Method One padding can not be used for message encryption because it is impossible to differentiate padding bytes from the message content. 
 
 [ISO-9797 Method 1 padding](ISO9797_1_padding.png)
+
+#### ISO-9797 Method 2 padding
+
+ISO-9797 Method Two padding is used for message padding, but it can be used, also, for message encryption. The padding applied to the message adds one byte vith value 0x80 (a singe bit with value 1) and, if necessery, adds zero bytes until the message meets length requirements. If that padding method is used for message MACing, it is not necessery to add additional block of padding if message is complete, but in a case of message encryption it must be.
+
+Example of ISO9797 Method 2 padding for incomplete message
+
+[ISO-9797 Method 2 padding](ISO9797_2_incomplete_padding.png)
+
+Example of ISO9797 Method 2 padding for complete message
+
+[ISO-9797 Method 2 padding](ISO9797_2_complete_padding.png)
 
 # HSM Local Master Keys (LMKs)
 
