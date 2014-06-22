@@ -308,6 +308,24 @@ The most commonly used MAC algorithms are defined in ISO-9797 standard.
 
 ![MAC functions](Macing_algorithms.png)
 
+## Padding
+
+### Symmetric block cipher padding
+
+In a case of symmetric block ciphers, padding is used to complete the message till the full block length. For example, if the message to be encrypted with DES algorithm has only 31 byte of data, it must be filled with additional 1 byte to be 32 bytes long, since DES algorithm needs 8 bytes of input plaintext data. 
+
+#### PKCS#5 padding
+
+PKCS#5 padding is the most common type of padding applied to message during encryption. The padding must be removed from message after decryption to restore the original message content. PKCS#5 padding fills message with bytes with padding length as value. If message meets length requirements, additional full block of padding must be added to the end of message.
+
+The example of PKCS#5 padding for incomplete message:
+
+![PKCS#5 padding for incomplete message](PKCS5_padding_incomplete.png)
+
+The example of PKCS#5 padding for complete 8 byte message:
+
+![PKCS#5 padding for complete message](PKCS#5_padding_complete.png)
+
 # HSM Local Master Keys (LMKs)
 
 Local Master Keys (LMKs) are a central concept for HSMs. This section describes LMKs in more detail.
