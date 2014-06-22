@@ -48,21 +48,25 @@ introduced with a short history of their evolution. Finally, an open source Thal
 presented, with hands on exercises for the reader to install the Simulator and then connect to it from Java,
 C#, and ruby clients.
 
-Chapter 2, HSM Local Master Keys (LMKs) covers in detail the concept of the LMKs. The knowledge
+Chapter 2, Theory covers the cryptography basics, different types of cryptographic functions and algorithms. 
+That chapter includes the basic information of encryption and message authentication functions used in cryptography.
+TODO finish about Chapter 2
+
+Chapter 3, HSM Local Master Keys (LMKs) covers in detail the concept of the LMKs. The knowledge
 gained in this chapter is fundamental to your understanding of the Thales HSM. Almost all other chapters
 depend on you understanding the material covered in this chapter. This chapter concludes with exercise
 with the Thales Simulator to help instill the concepts of LMKs.
 
-Chapter 3, Key Concepts describes general key concepts that you need to know in addition to the material
+Chapter 4, Key Concepts describes general key concepts that you need to know in addition to the material
 covered in the previous chapter about LMKs. The knowledge in this chapter is of vital importance when
 interacting with the Thales HSM. Exercises are provided with the Thales Simulator to put the concepts
 learnt in this chapter into practise.
 
-Chapter 4, Secure Key Exchange two sites that are secured with HSMs need to have a set of keys that are
+Chapter 5, Secure Key Exchange two sites that are secured with HSMs need to have a set of keys that are
 shared between the HSMs. This chapter describes how keys are created and shared. Exercises are given
 to setup two demo sites with the Thales Simulator and generate and share keys between the demo sites.
 
-Chapter 5, Dynamic Key Exchange 
+Chapter 6, Dynamic Key Exchange 
 
 TODO describe other chapters
 
@@ -80,7 +84,6 @@ Other acronyms for Hardware Security Modules include:
 - *SCD* :  Secure Cryptographic Devices
 
 TODO: Why digital key management? Life without a HSM?
-TODO: Key encrypting Key versus Data Encrypting Key
 TODO: Thales Simulator project overview.
 
 ## Thales HSM History and Versions
@@ -180,7 +183,7 @@ The command should output a response similar to the following:
 !0000ND007B44AC1DDEE2A94B0007-E000
 ```
 
-The response from HSM can be brouken down as follows:
+The response from HSM can be broken down as follows:
 
 - ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
 - ```0000``` is HSM response header which is set the same as for received command
@@ -247,6 +250,61 @@ $ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
 ```
 
 See the description from [Connecting with a perl client](/book.md#connecting-with-a-perl-client) for the format of the command: ```0006303030304e43```.
+
+# Theory
+## Cryptographic functions
+
+Basicly, cryptographic functions are splitted into two huge classes called ecnryption and message authentication functions. 
+
+The encryption functions are used to transmit the data securely. Encryption functions are two way functions and have both, encryption and decryption algorithms. The sender encrypts the message to be send with encryption algorithm and the cryptographic key. After, receiver, using decryption algorithm and cryptographic key, decrypts the encrypted data received and can use it:
+
+![Encryption functions](Encryption_functions.png)
+
+The authentication functions are used to ensure, that the message was not modified during transmition. Message authentication function result is not reversable. The sender calculates check summ of the message and sends it together with plaintext or encrypted message. The sender, using the same message authentication algorithm can verify the check summ received together with the message. If check summ is valid, receiver can be sure, message was not modified during transmition:
+
+![Authentication functions](Authentication_functions.png)
+
+## Encryption functions
+
+Encryption functions are devided into two classes, symmetric and asymmetric. 
+
+Symmetric encryption algorithms uses the same key for both, encryption of plaintext data and decryption of ciphertext. Usualy, the decryption algorithm is completely reversed encryption algorithm. The symmetric encryption can use stream ciphers or block ciphers. This document covers only block cipher encryption. Block cipher algorithms operates with fixed length blocks of bits on input, if the plain text message can not be splitted into blocks of needed length before encryption, it should be padded with additional bytes to meet the needed length. 
+
+Some of the most commonly used symmetric algorithms are: 
+- Data Encryption Standard (DES / 3DES)
+- Advanced Encryption Standard (AES)
+- Blowfish
+- Twofish
+
+![Symmetric algorithms](Symmetric_algorithms.png)
+
+Asymmetric, also known as public-key algorithms use different keys (key pairs) for data encryption and decryption, private key and public key. Both, the private and public keys are mathematicaly linked. The asymmetric encryption and decryption algorithms are also different. Before communication the receiver generates the pair of keys and keeps private key in a secret. The public key is distributed with other parties involved in data exchange. The public key used to encrypt data cann't be used to decrypt it. Data can be decrypted ony with private key.
+
+Some of the most commonly used asymmetric algorithms are:
+- Rivest Shamir Adleman (RSA)
+- Diffie-Hellman
+- Digital Signature Algorithm (DSA)
+- ElGamal
+- Elyptic Curve Cipher (ECC)
+
+![Asymmetric algorithms](Asymmetric_algorithms.png)
+
+## Message authentication functions
+
+Authentication functions are devided into 2 classes, hash and MAC.
+
+Hash functions are the message authentication functions wich produces the fixed length output summ (hash) of variable length data. The hash functions do not use the encryption functions to produce hashes. Usualy, in cryptography, hash functions are applied on plain text messages before encryption, because no any secrets are used to produce hash of the message. 
+
+Some of the most commonly used hash functions:
+- MD5
+- SHA-1
+- SHA-2
+
+![Hash functions](Hash_functions.png)
+
+MAC functions also called keyed hash functions are the cryptographic based message authentication functions to produce the short output check summ over the message used to ensure, that the message was not modified during transmission. In contradistinction to hash functions, MACs are generated using cryptographic algorithms and secret keys. 
+
+![MAC functions](Macing_functions.png)
 
 # HSM Local Master Keys (LMKs)
 
