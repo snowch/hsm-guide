@@ -354,6 +354,12 @@ public byte[] pkcs5Unpad(byte[] paddedBlock, int blockSize) {
 } 
 ```
 
+#### ISO-9797 Method 1 padding
+
+ISO-9797 Method 1 padding is used for message MACing. This method adds zero bytes to the end of message until it meets the length requirements. It is not necessery to add an additional block of padding if message meets length requirements. Method One padding can not be used for message encryption because it is impossible to differentiate padding bytes from the message content. 
+
+[ISO-9797 Method 1 padding](ISO9797_1_padding.png)
+
 # HSM Local Master Keys (LMKs)
 
 Local Master Keys (LMKs) are a central concept for HSMs. This section describes LMKs in more detail.
