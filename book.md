@@ -456,6 +456,15 @@ public static byte[] pkcs1Pad (byte[] message) {
 	return paddedMsg;
 }
 
+public static byte[] pkcs1Unpad (byte[] paddedMsg) throws javax.crypto.BadPaddingException {
+	int sepIdx = new String(paddedMsg).indexOf("\0", 1);
+	if (paddedMsg[0] != (byte)0x00 || paddedMsg[1] != (byte)0x02 || sepIdx == -1 || sepIdx < 10) {
+		throw new javax.crypto.BadPaddingException();
+	}
+	byte[] message = new byte[paddedMsg.length - sepIdx];
+	System.arraycopy(paddedMsg, sepIdx + 1, message, 0, message.length);
+	return message;
+}
 ```
 
 #### PKCS#1 OAEP padding
