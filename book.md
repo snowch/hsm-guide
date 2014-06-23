@@ -336,6 +336,9 @@ The example of PKCS#5 padding on Java:
 
 public byte[] pkcs5Pad(byte[] block, int bloclSize) {
 	int padLen = bloxkSize - block.length % blockSize;
+	if (padLen == 0) {
+		padLen = blockSize;
+	}
 	int padVal = (byte)padLen;
 	byte[] paddedBlock = new byte[block.length + padLen];
 	System.arraycopy(block, 0, paddedBlock, 0, block.length);
@@ -360,6 +363,22 @@ ISO-9797 Method One padding is used for message MACing. This method adds zero by
 
 [ISO-9797 Method 1 padding](ISO9797_1_padding.png)
 
+The example of ISO-9797 Method 1 padding on Java:
+
+```java
+/* 
+ * since different symmetric algoritms have different input data block sizes
+ * the blockSize variable is passed to the methods
+ */
+ 
+public byte[] iso9797Method1Pad (byte[] block, int blockSize) {
+	int padLen = blockSize - block.length % blockSize;
+	byte[] paddedBlock = new byte[block.length + padLen];
+	System.arraycopy(block, 0, paddedBlock, 0, block.length);
+	return paddedBlock;
+}
+```
+
 #### ISO-9797 Method 2 padding
 
 ISO-9797 Method Two padding is used for message padding, but it can be used, also, for message encryption. The padding applied to the message adds one byte vith value 0x80 (a singe bit with value 1) and, if necessery, adds zero bytes until the message meets length requirements. If that padding method is used for message MACing, it is not necessery to add additional block of padding if message is complete, but in a case of message encryption it must be.
@@ -371,6 +390,23 @@ Example of ISO9797 Method 2 padding for incomplete message
 Example of ISO9797 Method 2 padding for complete message
 
 [ISO-9797 Method 2 padding](ISO9797_2_complete_padding.png)
+
+The example of ISO-9797 Method 2 padding on Java:
+
+```java
+/* 
+ * since different symmetric algoritms have different input data block sizes
+ * the blockSize variable is passed to the methods
+ */
+ 
+public byte[] iso9797Method2Pad (byte[] block, int blockSize) {
+	int padLen = blockSize - block.length % blockSize;
+	byte[] paddedBlock = new byte[block.length + padLen];
+	System.arraycopy(block, 0, paddedBlock, 0, block.length);
+	paddedBlock[block.length + 1] = (byte)0x80;
+	return paddedBlock;
+}
+```
 
 # HSM Local Master Keys (LMKs)
 
