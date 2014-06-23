@@ -310,7 +310,9 @@ The most commonly used MAC algorithms are defined in ISO-9797 standard.
 
 ## Padding
 
-### Symmetric block cipher padding
+TODO - Introduction to paddings
+
+### Symmetric block cipher paddings
 
 In a case of symmetric block ciphers, padding is used to complete the message till the full block length. For example, if the message to be encrypted with DES algorithm has only 31 byte of data, it must be filled with additional 1 byte to be 32 bytes long, since DES algorithm needs 8 bytes of input plaintext data. 
 
@@ -334,7 +336,7 @@ The example of PKCS#5 padding on Java:
  * the blockSize variable is passed to the methods
  */
 
-public byte[] pkcs5Pad(byte[] block, int bloclSize) {
+public static byte[] pkcs5Pad(byte[] block, int bloclSize) {
 	int padLen = bloxkSize - block.length % blockSize;
 	if (padLen == 0) {
 		padLen = blockSize;
@@ -348,7 +350,7 @@ public byte[] pkcs5Pad(byte[] block, int bloclSize) {
 	return paddedBlock;
 }
 
-public byte[] pkcs5Unpad(byte[] paddedBlock, int blockSize) {
+public static byte[] pkcs5Unpad(byte[] paddedBlock, int blockSize) {
 	int padLen = paddedBlock[(paddedBlock.length - 1)];
 	int plainLen = paddedBlock.length - padLen;
 	byte[] plainBlock = new byte[plainLen];
@@ -371,7 +373,7 @@ The example of ISO-9797 Method 1 padding on Java:
  * the blockSize variable is passed to the methods
  */
  
-public byte[] iso9797Method1Pad (byte[] block, int blockSize) {
+public static byte[] iso9797Method1Pad (byte[] block, int blockSize) {
 	int padLen = blockSize - block.length % blockSize;
 	byte[] paddedBlock = new byte[block.length + padLen];
 	System.arraycopy(block, 0, paddedBlock, 0, block.length);
@@ -381,7 +383,7 @@ public byte[] iso9797Method1Pad (byte[] block, int blockSize) {
 
 #### ISO-9797 Method 2 padding
 
-ISO-9797 Method Two padding is used for message padding, but it can be used, also, for message encryption. The padding applied to the message adds one byte vith value 0x80 (a singe bit with value 1) and, if necessery, adds zero bytes until the message meets length requirements. If that padding method is used for message MACing, it is not necessery to add additional block of padding if message is complete, but in a case of message encryption it must be.
+ISO-9797 Method Two padding is used for message padding for MAC calculation, but it can be used, also, for message encryption. The padding applied to the message adds one byte vith value 0x80 (a singe bit with value 1) and, if necessery, adds zero bytes until the message meets length requirements. If that padding method is used for message MACing, it is not necessery to add additional block of padding if message is complete, but in a case of message encryption it must be.
 
 Example of ISO9797 Method 2 padding for incomplete message
 
@@ -399,7 +401,7 @@ The example of ISO-9797 Method 2 padding on Java:
  * the blockSize variable is passed to the methods
  */
  
-public byte[] iso9797Method2Pad (byte[] block, int blockSize) {
+public static byte[] iso9797Method2Pad (byte[] block, int blockSize) {
 	int padLen = blockSize - block.length % blockSize;
 	byte[] paddedBlock = new byte[block.length + padLen];
 	System.arraycopy(block, 0, paddedBlock, 0, block.length);
@@ -407,6 +409,152 @@ public byte[] iso9797Method2Pad (byte[] block, int blockSize) {
 	return paddedBlock;
 }
 ```
+
+### Asymmetric cipher paddings
+
+In the most cases asymmetric cipher paddings are used to randomise the output. Usualy, asymmetric paddings have fixed length and is placed in plaintext message in the predefined position.
+
+#### PKCS#1 v1.5 padding
+
+PKCS#1 v1.5 padding is used to randomise the ciphertext output dirung RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-PKCS#1 scheme must meet the condition ```mLen <= k - 11```, where ```mLen``` is plaintext message length and ```k``` is the public key length. The padding must be at least 11 bytes long and contain at least 8 non-zero random bytes. The scheme abowe shows the padding structure:
+
+![PKCS1_1_5_padding](PKCS1_1_5_padding.png)
+
+When the ciphertext is decrypted, the padding structure must be validated. In a case of structure mismatch the error should be returned. The conditions of valid padding are:
+
+- 1st byte must be 0x00;
+- 2nd byte must be 0x02;
+- Encrypted message must have a byte with value 0x00 separating random byte octet from message;
+- Random byte octet must be at least 8 non-zero bytes long.
+
+The example of PKCS#1 v1.5 padding on Java:
+
+```java
+/*
+ * The example below adds the variable length (maximum 64 bytes) PKCS#11 padding
+ */
+ 
+public static byte[] pkcs1Pad (byte[] message) {
+	java.util.Random r = new java.util.Random();
+	int padLen = r.nextInt(57) + 8;
+	byte[] rand = new byte[padLen];
+	byte[] paddedMsg = new byte[message.length + padLen + 3];
+	paddedMsg[0] = (byte)0x00;
+	paddedMsg[1] = (byte)0x02;
+	paddedMsg[padLen + 2] = (byte)0x00;
+	int n = 0;
+	for (int i = 0; i < padLen; i++) {
+		n = r.nextInt(256);
+		if (n == 0) {
+			i--;
+			continue;
+		}
+		rand[i] = (byte)n;
+	}
+	System.arraycopy(rand, 0, paddedMsg, 2, rand.length);
+	System.arraycopy(message, 0, paddedMsg, padLen + 3, message.length);
+	return paddedMsg;
+}
+
+```
+
+#### PKCS#1 OAEP padding
+
+PKCS#1 OAEP (Optimal Asymmetric Encryption Padding) padding is used to randomise the ciphertext output dirung RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-OAEP scheme must meet the condition ```mLen <= k - 2hLen - 2```, where ```mLen``` is plaintext message length, ```k``` is a public key length, ```hLen``` is the length of hash function output. 
+
+TODO - to finish.
+
+## Exercises
+
+### Asymmetric cipher paddings
+1) To verify the PKCS#1 v1.5 padding the following Java code can be used:
+
+```java
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import javax.crypto.Cipher;
+
+public class RSAPaddingTest {
+	
+	private static String byte2hex(byte bs[]) {
+		// refer to Appendix A for that method code
+	}
+	
+	/*
+	 * Method generates the private and public RSA key pair
+	 */
+
+	private static KeyPair generateKeyPair () throws Exception {
+		KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+		kpg.initialize(512);
+		KeyPair kp = kpg.genKeyPair();
+		return kp;
+	}
+	
+	/*
+	 * Method encrypts passed message with RSA public key applying 
+	 * PKCS1Padding to plaintext message
+	 */
+	
+	private static byte[] encrypt (String msg, PublicKey publicKey) throws Exception {
+		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+		byte[] ciphMsg = cipher.doFinal(msg.getBytes());
+		return ciphMsg;
+	}
+	
+	/*
+	 * Method decrypts passed cipher text with RSA private key and do not remove
+	 * padding from plaintext message
+	 */
+	
+	private static byte[] decrypt (byte[] ciphMsg, PrivateKey privateKey) throws Exception {
+		Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
+		cipher.init(Cipher.DECRYPT_MODE, privateKey);
+		byte[] plainMsg = cipher.doFinal(ciphMsg);
+		return plainMsg;
+	}
+	
+	public static void main (String[] args) {
+		String msg = args[0];
+		try {
+			KeyPair kp = generateKeyPair();
+			PublicKey publicKey = kp.getPublic();
+			PrivateKey privateKey = kp.getPrivate();
+			byte[] ciphMsg = encrypt(msg, publicKey);
+			byte[] plainMsg = decrypt(ciphMsg, privateKey);
+			System.out.println(byte2hex(plainMsg));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+The code above can be compiled with command:
+
+```javac RSAPaddingTest.java```
+
+Run with command:
+
+```java RSAPaddingTest <message>```
+
+The output will be as follows:
+
+```
+$ java JavaRSA 34234234234
+0002570D03777D36E4B335597EFCDB68FA076D6B7DFD210B727C9A088D351D52846185F9C03826B35062C1EFB3644C190BE6DDC2003334323334323334323334
+```
+
+The output abowe shows, that Java adds 50 random bytes when Java RSA encryption with PKCS#1 padding is used:
+
+- ```00``` - 1st byte is ```0x00```
+- ```02``` - 2nd byte is ```0x02```
+- ```570D03777D36E4B335597EFCDB68FA076D6B7DFD210B727C9A088D351D52846185F9C03826B35062C1EFB3644C190BE6DDC2``` - random bytes (50)
+- ```00``` - padding separator, ```0x00```;
+- ```3334323334323334323334``` - plaintext message
 
 # HSM Local Master Keys (LMKs)
 
@@ -731,4 +879,23 @@ Key check value: 6543 F4
 
 # CVV/CV2/iCVV
 
-# Appendix A - Introductory Books in Cryptography
+# Appendix A - Commonly used code in examples
+```java
+private static String byte2hex(byte bs[]) {
+	int i;
+	String s = new String();
+	String hex_digits = "0123456789ABCDEF";
+	byte c;
+	if (bs == null || bs.length == 0) {
+		return s;
+	}
+	for (i = 0; i < bs.length; ++i) {
+		c = bs[i];
+		s += hex_digits.charAt((c >> 4) & 0xf);
+		s += hex_digits.charAt(c & 0xf);
+	}
+	return s;
+}
+```
+
+# Appendix B - Introductory Books in Cryptography
