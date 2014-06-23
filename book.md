@@ -361,7 +361,7 @@ public byte[] pkcs5Unpad(byte[] paddedBlock, int blockSize) {
 
 ISO-9797 Method One padding is used for message MACing. This method adds zero bytes to the end of message until it meets the length requirements. It is not necessery to add an additional block of padding if a message meets length requirements. Method One padding can not be used for message encryption because it is impossible to differentiate padding bytes from the message content. 
 
-[ISO-9797 Method 1 padding](ISO9797_1_padding.png)
+![ISO-9797 Method 1 padding](ISO9797_1_padding.png)
 
 The example of ISO-9797 Method 1 padding on Java:
 
@@ -385,11 +385,11 @@ ISO-9797 Method Two padding is used for message padding, but it can be used, als
 
 Example of ISO9797 Method 2 padding for incomplete message
 
-[ISO-9797 Method 2 padding](ISO9797_2_incomplete_padding.png)
+![ISO-9797 Method 2 padding](ISO9797_2_incomplete_padding.png)
 
 Example of ISO9797 Method 2 padding for complete message
 
-[ISO-9797 Method 2 padding](ISO9797_2_complete_padding.png)
+![ISO-9797 Method 2 padding](ISO9797_2_complete_padding.png)
 
 The example of ISO-9797 Method 2 padding on Java:
 
