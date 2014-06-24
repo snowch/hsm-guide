@@ -337,7 +337,7 @@ The example of PKCS#5 padding on Java:
  */
 
 public static byte[] pkcs5Pad(byte[] block, int bloclSize) {
-	int padLen = bloxkSize - block.length % blockSize;
+	int padLen = blockSize - block.length % blockSize;
 	if (padLen == 0) {
 		padLen = blockSize;
 	}
@@ -345,17 +345,17 @@ public static byte[] pkcs5Pad(byte[] block, int bloclSize) {
 	byte[] paddedBlock = new byte[block.length + padLen];
 	System.arraycopy(block, 0, paddedBlock, 0, block.length);
 	for (int k = 0; k < padLen; k++) {
-		paddedBlock[(block.length + k)] = padVal;
+		paddedBlock[(block.length + k)] = (byte)padVal;
 	}
 	return paddedBlock;
 }
 
-public static byte[] pkcs5Unpad(byte[] paddedBlock, int blockSize) {
+public static byte[] pkcs5Unpad(byte[] paddedBlock) {
 	int padLen = paddedBlock[(paddedBlock.length - 1)];
 	int plainLen = paddedBlock.length - padLen;
 	byte[] plainBlock = new byte[plainLen];
 	System.arraycopy(paddedBlock, 0, plainBlock, 0, plainLen);
-	return arrayOfByte;
+	return plainBLock;
 } 
 ```
 
@@ -375,6 +375,9 @@ The example of ISO-9797 Method 1 padding on Java:
  
 public static byte[] iso9797Method1Pad (byte[] block, int blockSize) {
 	int padLen = blockSize - block.length % blockSize;
+	if (padLen == blockSize) {
+		padLen = 0;
+	}
 	byte[] paddedBlock = new byte[block.length + padLen];
 	System.arraycopy(block, 0, paddedBlock, 0, block.length);
 	return paddedBlock;
@@ -401,8 +404,13 @@ The example of ISO-9797 Method 2 padding on Java:
  * the blockSize variable is passed to the methods
  */
  
-public static byte[] iso9797Method2Pad (byte[] block, int blockSize) {
+public static byte[] iso9797Method2Pad (byte[] block, int blockSize, boolean forMacing) {
 	int padLen = blockSize - block.length % blockSize;
+	// if padding is used for MACing, we do not need to add additional block
+	// in a case of complete message length (multiple of blockSize)
+	if (forMacing && padLen == blockSize) {	
+		padLen = 0;
+	}
 	byte[] paddedBlock = new byte[block.length + padLen];
 	System.arraycopy(block, 0, paddedBlock, 0, block.length);
 	paddedBlock[block.length] = (byte)0x80;
