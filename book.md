@@ -436,7 +436,7 @@ In the most cases asymmetric cipher paddings are used to randomise the output. U
 
 #### PKCS#1 v1.5 padding
 
-PKCS#1 v1.5 padding is used to randomise the ciphertext output dirung RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-PKCS#1 scheme must meet the condition ```mLen <= k - 11```, where ```mLen``` is plaintext message length and ```k``` is the public key length. The padding must be at least 11 bytes long and contain at least 8 non-zero random bytes. The scheme abowe shows the padding structure:
+PKCS#1 v1.5 padding is used to randomise the ciphertext output dirung RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-PKCS#1 scheme must meet the condition ```mLen <= k - 11```, where ```mLen``` is plaintext message length and ```k``` is the public key length. The padding must be at least 11 bytes long and contain at least 8 non-zero random bytes. The scheme below shows the padding structure:
 
 ![PKCS1_1_5_padding](PKCS1_1_5_padding.png)
 
@@ -451,12 +451,13 @@ The example of PKCS#1 v1.5 padding on Java:
 
 ```java
 /*
- * The example below adds the variable length (maximum 64 bytes) PKCS#1 padding
+ * The example below adds PKCS#1 padding of length to make message the same 
+ * size as pubic key.
  */
  
-public static byte[] pkcs1Pad (byte[] message) {
+public static byte[] pkcs1Pad (byte[] message, int keyLen) {
 	java.util.Random r = new java.util.Random();
-	int padLen = r.nextInt(57) + 8;
+	int padLen = keyLen - message.length - 3;
 	byte[] rand = new byte[padLen];
 	byte[] paddedMsg = new byte[message.length + padLen + 3];
 	paddedMsg[0] = (byte)0x00;
@@ -479,7 +480,7 @@ public static byte[] pkcs1Pad (byte[] message) {
 public static byte[] pkcs1Unpad (byte[] paddedMsg) throws javax.crypto.BadPaddingException {
 	int sepIdx = new String(paddedMsg).indexOf("\0", 1);
 	if (paddedMsg[0] != (byte)0x00 || paddedMsg[1] != (byte)0x02 || sepIdx == -1 || sepIdx < 10) {
-		throw new javax.crypto.BadPaddingException("Padding does not meet some conditions");
+		throw new javax.crypto.BadPaddingException("Padding does not meet required conditions");
 	}
 	byte[] message = new byte[paddedMsg.length - sepIdx - 1];
 	System.arraycopy(paddedMsg, sepIdx + 1, message, 0, message.length);
@@ -577,7 +578,7 @@ $ java JavaRSA 34234234234
 0002570D03777D36E4B335597EFCDB68FA076D6B7DFD210B727C9A088D351D52846185F9C03826B35062C1EFB3644C190BE6DDC2003334323334323334323334
 ```
 
-The output abowe shows, that Java adds 50 random bytes when Java RSA encryption with PKCS#1 padding is used:
+The output abowe shows, that Java adds a random byte PKCS#1 padding to message making it the same length as a public key. In the example public key is 512 bits long.
 
 - ```00``` - 1st byte is ```0x00```
 - ```02``` - 2nd byte is ```0x02```
