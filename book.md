@@ -405,8 +405,20 @@ public static byte[] iso9797Method2Pad (byte[] block, int blockSize) {
 	int padLen = blockSize - block.length % blockSize;
 	byte[] paddedBlock = new byte[block.length + padLen];
 	System.arraycopy(block, 0, paddedBlock, 0, block.length);
-	paddedBlock[block.length + 1] = (byte)0x80;
+	paddedBlock[block.length] = (byte)0x80;
 	return paddedBlock;
+}
+
+public static byte[] iso9797Method2Unpad (byte[] paddedMsg) {
+	int padIdx = 0;
+	for (int i = paddedMsg.length - 1; i > 0; i--) {
+		if (paddedMsg[i] == (byte)0x80) {
+			padIdx = i;
+		}
+	}
+	byte[] message = new byte[paddedMsg.length - padIdx];
+	System.arraycopy(paddedMsg, 0, message, 0, message.length);
+	return message;
 }
 ```
 
