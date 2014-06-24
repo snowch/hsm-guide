@@ -443,7 +443,7 @@ The example of PKCS#1 v1.5 padding on Java:
 
 ```java
 /*
- * The example below adds the variable length (maximum 64 bytes) PKCS#11 padding
+ * The example below adds the variable length (maximum 64 bytes) PKCS#1 padding
  */
  
 public static byte[] pkcs1Pad (byte[] message) {
