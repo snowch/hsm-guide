@@ -192,7 +192,7 @@ The response from HSM can be broken down as follows:
 - ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
 - ```0007-E000``` means the HSM firmware revision number
 
-Each command has its own response specification.
+Each command has its own response specification, see "Host command reference manual" for more details.
 
 #####  Connecting with a Java Client
 
@@ -516,9 +516,9 @@ public class RSAPaddingTest {
 	 * Method generates the private and public RSA key pair
 	 */
 
-	private static KeyPair generateKeyPair () throws Exception {
+	private static KeyPair generateKeyPair (int keyLen) throws Exception {
 		KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
-		kpg.initialize(512);
+		kpg.initialize(keyLen);
 		KeyPair kp = kpg.genKeyPair();
 		return kp;
 	}
@@ -549,8 +549,9 @@ public class RSAPaddingTest {
 	
 	public static void main (String[] args) {
 		String msg = args[0];
+		int keyLen = Integer.parseInt(args[1]);
 		try {
-			KeyPair kp = generateKeyPair();
+			KeyPair kp = generateKeyPair(keyLen);
 			PublicKey publicKey = kp.getPublic();
 			PrivateKey privateKey = kp.getPrivate();
 			byte[] ciphMsg = encrypt(msg, publicKey);
@@ -569,16 +570,16 @@ The code above can be compiled with command:
 
 Run with command:
 
-```java RSAPaddingTest <message>```
+```java RSAPaddingTest <message> <key length>```
 
 The output will be as follows:
 
 ```
-$ java JavaRSA 34234234234
+$ java JavaRSA 34234234234 512
 0002570D03777D36E4B335597EFCDB68FA076D6B7DFD210B727C9A088D351D52846185F9C03826B35062C1EFB3644C190BE6DDC2003334323334323334323334
 ```
 
-The output abowe shows, that Java adds a random byte PKCS#1 padding to message making it the same length as a public key. In the example public key is 512 bits long.
+The output abowe shows, that Java adds a random byte PKCS#1 padding to message making it the same length as a public key. In the example public key (modulo) is 512 bits long.
 
 - ```00``` - 1st byte is ```0x00```
 - ```02``` - 2nd byte is ```0x02```
@@ -681,7 +682,7 @@ Each different key supported by the Thales HSM has a unique code called the key 
 | 32-33        | 0B       | 0       | 00B           | DEK           |
 | 32-33        | 0B       | 3       | 30B           | TEK           |
 
-In the latest payShield9000 HSMs Thales has introduced second, PCI-HSM standard compliant, key type table with the changes around 002 key type - PVK, TMK, TPK. The changes moves TMK and TPK to different LMK pair and Variants leaving PVK the only key of 002 type:
+In the latest payShield9000 and HSM8000 firmwares Thales has introduced second, PCI-HSM standard compliant, key type table with the changes around 002 key type - PVK, TMK, TPK. The changes moves TMK and TPK to different LMK pair and Variants leaving PVK the only key of 002 type:
 
 | LMK Key Pair | LMK Code | Variant | Key Type Code | Key Type      |
 |--------------|----------|---------|---------------|---------------|
@@ -897,8 +898,6 @@ Key encrypted for transmission: X BAA5 18AA D10D 28A2 D32A 5688 317F 44EB
 Key check value: 6543 F4
 ```
 
-
-
 # PIN block creation (clear PIN blocks)
 
 # PIN block encryption and security zones. ZPKs and TPKs
@@ -907,9 +906,10 @@ Key check value: 6543 F4
 
 # MACing
 
-# CVV/CV2/iCVV
+# CVV/CVV2/iCVV
 
 # Appendix A - Commonly used code in examples
+
 ```java
 private static String byte2hex(byte bs[]) {
 	int i;
@@ -928,4 +928,6 @@ private static String byte2hex(byte bs[]) {
 }
 ```
 
-# Appendix B - Introductory Books in Cryptography
+# Appendix B - Some other usefull code peaces
+
+# Appendix C - Introductory Books in Cryptography
