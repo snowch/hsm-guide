@@ -258,27 +258,25 @@ If you want to call HSM using PL/SQL you can use the UTL_TCP package as in examp
 ```sql
 CREATE OR REPLACE PROCEDURE call_hsm IS 
 
-    v_to_hsm VARCHAR2(255);
-    n_length NUMBER(2);
-    v_from_hsm VARCHAR2(255);
-    rw_from_hsm RAW(100);
-    c utl_tcp.connection;
-
-    BEGIN
-        c := utl_tcp.open_connection('192.168.229.1', '9998', NULL, NULL, NULL, NULL, NULL, NULL, 1); 
-	v_to_hsm := '0000' || 'NC';
-        v_to_hsm := CHR(0) || CHR(LENGTH(v_to_hsm)) || v_to_hsm;
-        v_from_hsm := utl_tcp.write_text(c, v_to_hsm);
-        n_length := utl_tcp.available(c, 1); 
-        n_length := utl_tcp.read_raw(c, rw_from_hsm, 100);
-        SELECT SUBSTR(CAST(rw_from_hsm AS VARCHAR2(255)), 5) 
-        	INTO v_from_hsm 
-        	FROM dual;
-
-        v_from_hsm := utl_i18n.raw_to_char(v_from_hsm);
-	dbms_output.put_line(v_from_hsm);
-        utl_tcp.close_connection(c);
-    END;
+	v_to_hsm VARCHAR2(255);
+	n_length NUMBER(2);
+	v_from_hsm VARCHAR2(255);
+	rw_from_hsm RAW(100);
+	c utl_tcp.connection;
+	BEGIN
+		c := utl_tcp.open_connection('192.168.229.1', '9998', NULL, NULL, NULL, NULL, NULL, NULL, 1); 
+		v_to_hsm := '0000' || 'NC';
+		v_to_hsm := CHR(0) || CHR(LENGTH(v_to_hsm)) || v_to_hsm;
+		v_from_hsm := utl_tcp.write_text(c, v_to_hsm);
+		n_length := utl_tcp.available(c, 1); 
+		n_length := utl_tcp.read_raw(c, rw_from_hsm, 100);
+		SELECT SUBSTR(CAST(rw_from_hsm AS VARCHAR2(255)), 5) 
+			INTO v_from_hsm 
+			FROM dual;
+		v_from_hsm := utl_i18n.raw_to_char(v_from_hsm);
+		dbms_output.put_line(v_from_hsm);
+		utl_tcp.close_connection(c);
+	END;
 ```
 
 # Theory
