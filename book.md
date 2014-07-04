@@ -306,7 +306,7 @@ Some of the most commonly used symmetric algorithms are:
 
 ![Symmetric algorithms](Symmetric_algorithms.png)
 
-Asymmetric, also known as public-key algorithms use different keys (key pairs) for data encryption and decryption, these are known as the private key and public key. Both the private and public keys are mathematicaly linked. The asymmetric encryption and decryption algorithms are also different. Before communication the receiver generates the pair of keys and keeps private key secret. The public key is distributed with other parties involved in data exchange. The public key used to encrypt data can't be used to decrypt it. Data can only be decrypted with the private key.
+Asymmetric, also known as public-key algorithms use different keys (key pairs) for data encryption and decryption, these are called the private key and public key. Both the private and public keys are mathematicaly linked. The asymmetric encryption and decryption algorithms are also different. Before communication the receiver generates the pair of keys and keeps private key secret. The public key is distributed with other parties involved in data exchange. The public key used to encrypt data can't be used to decrypt it. Data can only be decrypted with the private key.
 
 Some of the most commonly used asymmetric algorithms are:
 - Rivest Shamir Adleman (RSA)
@@ -317,11 +317,13 @@ Some of the most commonly used asymmetric algorithms are:
 
 ![Asymmetric algorithms](Asymmetric_algorithms.png)
 
+TODO - brief paragraph to say when to use symmetric and when to use assymetric?
+
 ### Message authentication functions
 
-Authentication functions are devided into 2 classes, hash and MAC.
+Authentication functions are divided into 2 classes, *hash* and *MAC*.
 
-Hash functions are the message authentication functions wich produces the fixed length output summ (hash) of variable length data. The hash functions do not use the encryption functions to produce hashes. Usualy, in cryptography, hash functions are applied on plain text messages before encryption, because no any secrets are used to produce hash of the message. 
+Hash functions are message authentication functions wich produce a fixed length output sum (hash) of variable length input data. The hash functions do not use the encryption functions to produce hashes. Usually in cryptography, hash functions are applied on plain text messages before encryption, so that secrets are not used to produce a hash of the message.  (TODO is this last sentence worded right?)
 
 Some of the most commonly used hash functions:
 - MD5
@@ -330,11 +332,15 @@ Some of the most commonly used hash functions:
 
 ![Hash functions](Hashing_algorithms.png)
 
-MAC functions also called keyed hash functions are the cryptographic based message authentication functions to produce the short output check summ over the message used to ensure, that the message was not modified during transmission. In contradistinction to hash functions, MACs are generated using cryptographic algorithms and secret keys. The MAC can be securely applied to plain text messages without message encryption because it uses cryptographic keys to produce MAC.
+MAC functions also called keyed hash functions are cryptographic based message authentication functions to produce the short output check sum over the message used to ensure, that the message was not modified during transmission. In contrast to hash functions, MACs are generated using cryptographic algorithms and secret keys. The MAC can be securely applied to plain text messages without message encryption because it uses cryptographic keys to produce MAC.
 
 The most commonly used MAC algorithms are defined in ISO-9797 standard.
 
+TODO - can we list some of the algorithms?
+
 ![MAC functions](Macing_algorithms.png)
+
+TODO - brief paragraph to say when to use hash and when to use mac?
 
 ## Padding
 
