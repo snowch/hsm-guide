@@ -282,21 +282,21 @@ CREATE OR REPLACE PROCEDURE call_hsm IS
 # Theory
 ## Cryptographic functions
 
-Basicly, cryptographic functions are splitted into two huge classes called ecnryption and message authentication functions. 
+Cryptographic functions fall into two main classes called *encryption* and *message authentication functions*. 
 
-The encryption functions are used to transmit the data securely. Encryption functions are two way functions and have both, encryption and decryption algorithms. The sender encrypts the message to be send with encryption algorithm and the cryptographic key. After, receiver, using decryption algorithm and cryptographic key, decrypts the encrypted data received and can use it:
+Encryption functions are used to transmit data securely. Encryption functions are two way functions and have both encryption and decryption algorithms. The sender encrypts the message to be sent with the encryption algorithm and the cryptographic key. After receiving the encrypted data the recipient uses a decryption algorithm and cryptographic key to decrypt the encrypted data received:
 
 ![Encryption functions](Encryption_functions.png)
 
-The authentication functions are used to ensure, that the message was not modified during transmition. Message authentication function result is not reversable. The sender calculates check summ of the message and sends it together with plaintext or encrypted message. The sender, using the same message authentication algorithm can verify the check summ received together with the message. If check summ is valid, receiver can be sure, message was not modified during transmition:
+Authentication functions are used to ensure that the message was not modified during transmission. The message authentication function result is not reversable. The sender calculates a check sum of the message and sends it together with plaintext or encrypted message. The sender, using the same message authentication algorithm can verify the check summ received together with the message. If the check sum is valid, the receiver can be sure that the message was not modified during transmission:
 
 ![Authentication functions](Authentication_functions.png)
 
 ### Encryption functions
 
-Encryption functions are devided into two classes, symmetric and asymmetric. 
+Encryption functions are divided into two classes, *symmetric* and *asymmetric*. 
 
-Symmetric encryption algorithms uses the same key for both, encryption of plaintext data and decryption of ciphertext. Usualy, the decryption algorithm is completely reversed encryption algorithm. The symmetric encryption can use stream ciphers or block ciphers. This document covers only block cipher encryption. Block cipher algorithms operates with fixed length blocks of bits on input, if the plain text message can not be splitted into blocks of needed length before encryption, it should be padded with additional bytes to meet the needed length. 
+Asymmetric encryption algorithms uses the same key for both encryption of plaintext data and decryption of ciphertext. Usually, the decryption algorithm is completely reversed encryption algorithm. The symmetric encryption can use stream ciphers or block ciphers. **This document covers only block cipher encryption**. Block cipher algorithms operate with fixed length blocks of bits on input, if the plain text message can not be split into blocks of the required length before encryption, it has to be padded with additional bytes to meet the required length. 
 
 Some of the most commonly used symmetric algorithms are: 
 - Data Encryption Standard (DES / 3DES)
@@ -306,7 +306,7 @@ Some of the most commonly used symmetric algorithms are:
 
 ![Symmetric algorithms](Symmetric_algorithms.png)
 
-Asymmetric, also known as public-key algorithms use different keys (key pairs) for data encryption and decryption, private key and public key. Both, the private and public keys are mathematicaly linked. The asymmetric encryption and decryption algorithms are also different. Before communication the receiver generates the pair of keys and keeps private key in a secret. The public key is distributed with other parties involved in data exchange. The public key used to encrypt data cann't be used to decrypt it. Data can be decrypted ony with private key.
+Asymmetric, also known as public-key algorithms use different keys (key pairs) for data encryption and decryption, these are known as the private key and public key. Both the private and public keys are mathematicaly linked. The asymmetric encryption and decryption algorithms are also different. Before communication the receiver generates the pair of keys and keeps private key secret. The public key is distributed with other parties involved in data exchange. The public key used to encrypt data can't be used to decrypt it. Data can only be decrypted with the private key.
 
 Some of the most commonly used asymmetric algorithms are:
 - Rivest Shamir Adleman (RSA)
