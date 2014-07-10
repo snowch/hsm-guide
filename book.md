@@ -296,7 +296,7 @@ Authentication functions are used to ensure that the message was not modified du
 
 Encryption functions are divided into two classes, *symmetric* and *asymmetric*. 
 
-Asymmetric encryption algorithms uses the same key for both encryption of plaintext data and decryption of ciphertext. Usually, the decryption algorithm is completely reversed encryption algorithm. The symmetric encryption can use stream ciphers or block ciphers. **This document covers only block cipher encryption**. Block cipher algorithms operate with fixed length blocks of bits on input, if the plain text message can not be split into blocks of the required length before encryption, it has to be padded with additional bytes to meet the required length. 
+Symmetic encryption algorithms uses the same key for both encryption of plaintext data and decryption of ciphertext. Usually, the decryption algorithm is completely reversed encryption algorithm. The symmetric encryption can use stream ciphers or block ciphers. **This document covers only block cipher encryption**. Block cipher algorithms operate with fixed length blocks of bits on input, if the plain text message can not be split into blocks of the required length before encryption, it has to be padded with additional bytes to meet the required length. 
 
 Some of the most commonly used symmetric algorithms are: 
 - Data Encryption Standard (DES / 3DES)
