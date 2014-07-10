@@ -323,7 +323,7 @@ TODO - brief paragraph to say when to use symmetric and when to use assymetric?
 
 Authentication functions are divided into 2 classes, *hash* and *MAC*.
 
-Hash functions are message authentication functions wich produce a fixed length output sum (hash) of variable length input data. The hash functions do not use the encryption functions to produce hashes. Usually in cryptography, hash functions are applied on plain text messages before encryption, so that secrets are not used to produce a hash of the message.  (TODO is this last sentence worded right?)
+Hash functions are message authentication functions wich produce a fixed length output sum (hash) of variable length input data. The hash functions do not use the encryption functions to produce hashes. Usually in cryptography, hash functions are applied on plain text messages before encryption, so that secrets are not used to produce a hash of the message. Atacker can generate the hashes free for modified messages, because of that no reason to use hash functions on encrypted messages or on plaintext messages without encryption of them.
 
 Some of the most commonly used hash functions:
 - MD5
