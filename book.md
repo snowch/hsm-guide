@@ -157,7 +157,9 @@ In this exercise, we executed a console command ```QH``` against the simulator a
 
 #####  Connecting with a Python Client
 
-See Appendix (TODO) for python installation instructions.
+See Appendix (TODO) for:
+- instructions for installing python
+- instructions to running python code
 
 ```python
 import binascii
