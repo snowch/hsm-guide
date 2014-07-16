@@ -155,18 +155,23 @@ In this section, we ... TODO describe what we are doing here
  
 In this exercise, we executed a console command ```QH``` against the simulator and observed the response that was displayed by the simulator.
 
-#####  Connecting with a Perl Client
+#####  Connecting with a Python Client
 
-In this exercise, we execute a host command against the Thales Simulator.
+```python
+import binascii
+import socket
 
-If you have perl installed, you can run the ```NC``` (Perform diagnostics) host command against the HSM as follows:
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_address = ('localhost', 9998)
+sock.connect(server_address)
 
-```perl
-#!/usr/bin/env perl
-use IO::Socket::INET; 
-my $sock = new IO::Socket::INET(PeerAddr=>"localhost:9998") or die; 
-$sock->send(pack "H*","0006303030304e43"); 
-$sock->recv($data, 1024); print $data;
+send_data = bytes.fromhex('0006303030304e43')
+sock.send(send_data)
+
+recv_data = sock.recv(1024)
+print(recv_data)
+
+sock.close()
 ```
 
 The code simply opens a TCP connection to a Thales Simulator listening on ```localhost``` on port ```9998```.  Next the perl client converts the string ```0006303030304e43``` from its hexidecimal format to binary and sends it to the Thales Simulator.  Finally the code receives the response and prints it to standard output.
@@ -180,11 +185,12 @@ To understand the meaning of the string ```0006303030304e43```, it can be broken
 The command should output a response similar to the following:
 
 ```
-!0000ND007B44AC1DDEE2A94B0007-E000
+b'\x00!0000ND007B44AC1DDEE2A94B0007-E000'
 ```
 
 The response from HSM can be broken down as follows:
 
+- ```b'\x00``` this string is output by python to say what type of data the output is - this can be ignored
 - ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
 - ```0000``` is HSM response header which is set the same as for received command
 - ```ND``` the response code. The response from HSM always is command code with incremented second letter
@@ -193,91 +199,6 @@ The response from HSM can be broken down as follows:
 - ```0007-E000``` means the HSM firmware revision number
 
 Each command has its own response specification, see "Host command reference manual" for more details.
-
-#####  Connecting with a Java Client
-
-In this session, we connect to the HSM over TCP/IP using Java. When we connect using Java, we can send Host Commands to the HSM.
-
-In the code example, below, we send the command Perform Diagnostics (NC), and print the response
-to System.out.
-
-For a full treatment of Host Programming the Thales HSM, refer to the Thales documentation “Host
-Programmer’s Manual”. For a full list of Host Commands, refer to the Thales documentation “Host
-Command Reference Manual”
-
-```java
-import java.io.BufferedOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.ByteBuffer;
-public class Main {
-
-   public static void main(String[] args) throws Exception {
-
-      Socket socket = new Socket("localhost", 9998);
-
-      String command = "0006303030304e43";
-      
-      // the following line converts the hex command string to a byte array
-      byte[] bytes = ByteBuffer.allocate(8).putLong(Long.parseLong(command, 16)).array();
-
-      OutputStream out = socket.getOutputStream();
-      BufferedOutputStream bufferedOut = new BufferedOutputStream(out, 1024);
-      bufferedOut.write(bytes);
-      bufferedOut.flush();
-
-      InputStream in = socket.getInputStream();
-      int result;
-      while ((result = in.read()) != -1) {
-         System.out.print((char)result);
-      }
-      socket.close();
-   }
-}
-```
-See the description from [Connecting with a perl client](/book.md#connecting-with-a-perl-client) for the format of the command: ```0006303030304e43```.
-
-#####  Connecting with a Unix client
-
-If you have netcat (nc) installed, you can run a command by using echo convert a hex string to binary and send it to the Thales simulator using netcat.
-
-Here we send the Thales command ```NC``` which asks the Thales Simulator to Perform Diagnostics and return the result:
-
-```
-$ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
-!0000ND007B44AC1DDEE2A94B0007-E000
-```
-
-See the description from [Connecting with a perl client](/book.md#connecting-with-a-perl-client) for the format of the command: ```0006303030304e43```.
-
-#####  Connecting with a PL/SQL client
-
-If you want to call HSM using PL/SQL you can use the UTL_TCP package as in example procedure below:
-
-```sql
-CREATE OR REPLACE PROCEDURE call_hsm IS 
-
-	v_to_hsm VARCHAR2(255);
-	n_length NUMBER(2);
-	v_from_hsm VARCHAR2(255);
-	rw_from_hsm RAW(100);
-	c utl_tcp.connection;
-	BEGIN
-		c := utl_tcp.open_connection('192.168.229.1', '9998', NULL, NULL, NULL, NULL, NULL, NULL, 1); 
-		v_to_hsm := '0000' || 'NC';
-		v_to_hsm := CHR(0) || CHR(LENGTH(v_to_hsm)) || v_to_hsm;
-		v_from_hsm := utl_tcp.write_text(c, v_to_hsm);
-		n_length := utl_tcp.available(c, 1); 
-		n_length := utl_tcp.read_raw(c, rw_from_hsm, 100);
-		SELECT SUBSTR(CAST(rw_from_hsm AS VARCHAR2(255)), 5) 
-			INTO v_from_hsm 
-			FROM dual;
-		v_from_hsm := utl_i18n.raw_to_char(v_from_hsm);
-		dbms_output.put_line(v_from_hsm);
-		utl_tcp.close_connection(c);
-	END;
-```
 
 # Theory
 ## Cryptographic functions
@@ -965,3 +886,125 @@ private static String byte2hex(byte bs[]) {
 # Appendix B - Some other usefull code peaces
 
 # Appendix C - Introductory Books in Cryptography
+
+# Appendix - Installing Python
+
+Download and install the latest version of python from https://www.python.org/download/
+
+# Appendix - Connecting to the HSM using different languages
+
+#####  Connecting with a Perl Client
+
+In this exercise, we execute a host command against the Thales Simulator.
+
+If you have perl installed, you can run the ```NC``` (Perform diagnostics) host command against the HSM as follows:
+
+```perl
+#!/usr/bin/env perl
+use IO::Socket::INET; 
+my $sock = new IO::Socket::INET(PeerAddr=>"localhost:9998") or die; 
+$sock->send(pack "H*","0006303030304e43"); 
+$sock->recv($data, 1024); print $data;
+```
+
+The command should output a response similar to the following:
+
+```
+!0000ND007B44AC1DDEE2A94B0007-E000
+```
+
+The response from HSM can be broken down as follows:
+
+- ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
+- ```0000``` is HSM response header which is set the same as for received command
+- ```ND``` the response code. The response from HSM always is command code with incremented second letter
+- ```00``` error code, ```00``` means that no errors occured during command processing
+- ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
+- ```0007-E000``` means the HSM firmware revision number
+
+Each command has its own response specification, see "Host command reference manual" for more details.
+
+#####  Connecting with a Java Client
+
+In this session, we connect to the HSM over TCP/IP using Java. When we connect using Java, we can send Host Commands to the HSM.
+
+In the code example, below, we send the command Perform Diagnostics (NC), and print the response
+to System.out.
+
+For a full treatment of Host Programming the Thales HSM, refer to the Thales documentation “Host
+Programmer’s Manual”. For a full list of Host Commands, refer to the Thales documentation “Host
+Command Reference Manual”
+
+```java
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.nio.ByteBuffer;
+public class Main {
+
+   public static void main(String[] args) throws Exception {
+
+      Socket socket = new Socket("localhost", 9998);
+
+      String command = "0006303030304e43";
+      
+      // the following line converts the hex command string to a byte array
+      byte[] bytes = ByteBuffer.allocate(8).putLong(Long.parseLong(command, 16)).array();
+
+      OutputStream out = socket.getOutputStream();
+      BufferedOutputStream bufferedOut = new BufferedOutputStream(out, 1024);
+      bufferedOut.write(bytes);
+      bufferedOut.flush();
+
+      InputStream in = socket.getInputStream();
+      int result;
+      while ((result = in.read()) != -1) {
+         System.out.print((char)result);
+      }
+      socket.close();
+   }
+}
+```
+See the description from [Connecting with a perl client](/book.md#connecting-with-a-perl-client) for the format of the command: ```0006303030304e43```.
+
+#####  Connecting with a Unix client
+
+If you have netcat (nc) installed, you can run a command by using echo convert a hex string to binary and send it to the Thales simulator using netcat.
+
+Here we send the Thales command ```NC``` which asks the Thales Simulator to Perform Diagnostics and return the result:
+
+```
+$ echo -ne '\x00\x06\x30\x30\x30\x30\x4e\x43' | nc localhost 9998
+!0000ND007B44AC1DDEE2A94B0007-E000
+```
+
+See the description from [Connecting with a perl client](/book.md#connecting-with-a-perl-client) for the format of the command: ```0006303030304e43```.
+
+#####  Connecting with a PL/SQL client
+
+If you want to call HSM using PL/SQL you can use the UTL_TCP package as in example procedure below:
+
+```sql
+CREATE OR REPLACE PROCEDURE call_hsm IS 
+
+	v_to_hsm VARCHAR2(255);
+	n_length NUMBER(2);
+	v_from_hsm VARCHAR2(255);
+	rw_from_hsm RAW(100);
+	c utl_tcp.connection;
+	BEGIN
+		c := utl_tcp.open_connection('192.168.229.1', '9998', NULL, NULL, NULL, NULL, NULL, NULL, 1); 
+		v_to_hsm := '0000' || 'NC';
+		v_to_hsm := CHR(0) || CHR(LENGTH(v_to_hsm)) || v_to_hsm;
+		v_from_hsm := utl_tcp.write_text(c, v_to_hsm);
+		n_length := utl_tcp.available(c, 1); 
+		n_length := utl_tcp.read_raw(c, rw_from_hsm, 100);
+		SELECT SUBSTR(CAST(rw_from_hsm AS VARCHAR2(255)), 5) 
+			INTO v_from_hsm 
+			FROM dual;
+		v_from_hsm := utl_i18n.raw_to_char(v_from_hsm);
+		dbms_output.put_line(v_from_hsm);
+		utl_tcp.close_connection(c);
+	END;
+```
