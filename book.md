@@ -157,6 +157,8 @@ In this exercise, we executed a console command ```QH``` against the simulator a
 
 #####  Connecting with a Python Client
 
+See Appendix (TODO) for python installation instructions.
+
 ```python
 import binascii
 import socket
@@ -174,7 +176,7 @@ print(recv_data)
 sock.close()
 ```
 
-The code simply opens a TCP connection to a Thales Simulator listening on ```localhost``` on port ```9998```.  Next the perl client converts the string ```0006303030304e43``` from its hexidecimal format to binary and sends it to the Thales Simulator.  Finally the code receives the response and prints it to standard output.
+The code simply opens a TCP connection to a Thales Simulator listening on ```localhost``` on port ```9998```.  Next the python client converts the string ```0006303030304e43``` from its hexidecimal format to binary and sends it to the Thales Simulator.  Finally the code receives the response and prints it to standard output.
 
 To understand the meaning of the string ```0006303030304e43```, it can be broken down as follows (in reverse order):
 
@@ -197,6 +199,7 @@ The response from HSM can be broken down as follows:
 - ```00``` error code, ```00``` means that no errors occured during command processing
 - ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
 - ```0007-E000``` means the HSM firmware revision number
+- ```'``` this string is output by python and can be ignored
 
 Each command has its own response specification, see "Host command reference manual" for more details.
 
