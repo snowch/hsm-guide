@@ -164,17 +164,23 @@ See Appendix (TODO) for:
 ```python
 import binascii
 import socket
+import sys
 
+# open a connection to the Thales Simulator
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('localhost', 9998)
 sock.connect(server_address)
 
-send_data = bytes.fromhex('0006303030304e43')
-sock.send(send_data)
+# send a command
+sock.send(bytes.fromhex('0006303030304e43'))
 
+# receive the command response
 recv_data = sock.recv(1024)
-print(recv_data)
 
+# printout response
+sys.stdout.buffer.write(recv_data)
+
+# close the connection
 sock.close()
 ```
 
@@ -189,19 +195,17 @@ To understand the meaning of the string ```0006303030304e43```, it can be broken
 The command should output a response similar to the following:
 
 ```
-b'\x00!0000ND007B44AC1DDEE2A94B0007-E000'
+ !0000ND007B44AC1DDEE2A94B0007-E000
 ```
 
 The response from HSM can be broken down as follows:
 
-- ```b'\x00``` this string is output by python to say what type of data the output is - this can be ignored
 - ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
 - ```0000``` is HSM response header which is set the same as for received command
 - ```ND``` the response code. The response from HSM always is command code with incremented second letter
 - ```00``` error code, ```00``` means that no errors occured during command processing
 - ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
 - ```0007-E000``` means the HSM firmware revision number
-- ```'``` this string is output by python and can be ignored
 
 Each command has its own response specification, see "Host command reference manual" for more details.
 
