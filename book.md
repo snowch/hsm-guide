@@ -441,9 +441,13 @@ public static byte[] pkcs1Pad (byte[] message, int keyLen) {
 	return paddedMsg;
 }
 
-public static byte[] pkcs1Unpad (byte[] paddedMsg) throws javax.crypto.BadPaddingException {
+public static byte[] pkcs1Unpad (byte[] paddedMsg) 
+		throws javax.crypto.BadPaddingException {
 	int sepIdx = new String(paddedMsg).indexOf("\0", 1);
-	if (paddedMsg[0] != (byte)0x00 || paddedMsg[1] != (byte)0x02 || sepIdx == -1 || sepIdx < 10) {
+	if (paddedMsg[0] != (byte)0x00 || 
+			paddedMsg[1] != (byte)0x02 || 
+			sepIdx == -1 || 
+			sepIdx < 10) {
 		throw new javax.crypto.BadPaddingException("Padding does not meet required conditions");
 	}
 	byte[] message = new byte[paddedMsg.length - sepIdx - 1];
