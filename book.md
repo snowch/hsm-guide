@@ -112,104 +112,14 @@ Host commands fall into the categories:
 
 - TODO
 
-## Introduction to the Thales Simulator
-
-## Thales Simulator Exercises
-
-This section provides some exercises to get hands on experience using the Thales Simulator.
-
-### Setting up the Thales Simulator
-
-In this exercise, you will download, install and run the Thales Simulator on a Windows machine.  The purpose of this exercise is to get the Thales Simulator setup and ready for use in later chapters.
-
-#### Download and Install the Thales Simulator
-
- 1. Download ```ThalesSim.Setup.0.9.6.x86.zip``` from: [http://thalessim.codeplex.com/releases/view/88576](http://thalessim.codeplex.com/releases/view/88576)
- 2. Unzip the downloaded file and execute the file ```ThalesWinSimulatorSetup.msi```, accepting the default options.
- 
-#### Starting the Thales Simulator
-
- 1. Navigate to the folder where you installed the Simulator (E.g. ```C:\Program Files (x86)\NTG\Thales Simulator\```)
- 2. Execute ThalesWinSimulator.exe (if your are running Windows 7, right click the file and select Run As Administrator)
- 3. Click the Start Simulator button: ![Start Button](./SimulatorStartButton.png)
- 4. In the Application Events window, the simulator will inform you that it could not find a file containing the LMK keys so it will create a new set of keys for you. The Simulator will always create the same keys. ![New Keys](./NewKeysImage.png)
-
-
-#### Using the Simulator Console
-
-In this section, we will connect to the HSM Console and run a basic command, Query Host (QH) to test connectivity to the HSM.
-
-For a full list of console commands, you will need to refer to the *Console Reference Manual* which is available from Thales.
-
-Note: The Thales Simulator only implements a subset of the commands. A list of implemented console commands can be found  [here](http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands).
-
-#####  Connecting with the Simulator Console
-
-In this section, we ... TODO describe what we are doing here
-
- 1. Start the simulator as described in [Starting the Thales Simulator](./book.md#starting-the-thales-simulator)
- 2. Click The Console button ![Console Button](./ConnectToConsoleButton.png)
- 3. In the console window click *Connect to Console*.
- 4. Enter the *console* command ```QH``` followed by ENTER. 
- 5. You should see something similar to this ![Console Button](./QHCommandOutput.png)
- 
-In this exercise, we executed a console command ```QH``` against the simulator and observed the response that was displayed by the simulator.
-
-#####  Connecting with a Python Client
-
-See Appendix (TODO) to see instructions for:
-- installing python
-- running python code
-
-```python
-import binascii
-import socket
-import sys
-
-# open a connection to the Thales Simulator
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('localhost', 9998)
-sock.connect(server_address)
-
-# send a command
-sock.send(bytes.fromhex('0006303030304e43'))
-
-# receive the command response
-recv_data = sock.recv(1024)
-
-# printout response
-sys.stdout.buffer.write(recv_data)
-
-# close the connection
-sock.close()
-```
-
-The code simply opens a TCP connection to a Thales Simulator listening on ```localhost``` on port ```9998```.  Next the python client converts the string ```0006303030304e43``` from its hexidecimal format to binary and sends it to the Thales Simulator.  Finally the code receives the response and prints it to standard output.
-
-To understand the meaning of the string ```0006303030304e43```, it can be broken down as follows (in reverse order):
-
-- ```4e43``` is the 2 byte command ```NC``` as hex
-- ```30303030``` adds a 4 byte header ```0000``` as hex
-- ```0006``` represents the length in hex of the comamnd and header (i.e. the length of ```0000NC```)
-
-The command should output a response similar to the following:
-
-```
- !0000ND007B44AC1DDEE2A94B0007-E000
-```
-
-The response from HSM can be broken down as follows:
-
-- ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
-- ```0000``` is HSM response header which is set the same as for received command
-- ```ND``` the response code. The response from HSM always is command code with incremented second letter
-- ```00``` error code, ```00``` means that no errors occured during command processing
-- ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
-- ```0007-E000``` means the HSM firmware revision number
-
-Each command has its own response specification, see "Host command reference manual" for more details.
-
 # Theory
+
+TODO introduction to this section
+
+## Bits, Bytes and Hex
+
+TODO write some information on bits, bytes and hex representation of data
+
 ## Cryptographic functions
 
 Cryptographic functions fall into two main classes called *encryption* and *message authentication functions*. 
@@ -554,6 +464,103 @@ The output abowe shows, that Java adds a random byte PKCS#1 padding to message m
 - ```570D03777D36E4B335597EFCDB68FA076D6B7DFD210B727C9A088D351D52846185F9C03826B35062C1EFB3644C190BE6DDC2``` - random bytes (50)
 - ```00``` - padding separator, ```0x00```;
 - ```3334323334323334323334``` - plaintext message
+
+# Introduction to the Thales Simulator
+
+## Thales Simulator Exercises
+
+This section provides some exercises to get hands on experience using the Thales Simulator.
+
+### Setting up the Thales Simulator
+
+In this exercise, you will download, install and run the Thales Simulator on a Windows machine.  The purpose of this exercise is to get the Thales Simulator setup and ready for use in later chapters.
+
+#### Download and Install the Thales Simulator
+
+ 1. Download ```ThalesSim.Setup.0.9.6.x86.zip``` from: [http://thalessim.codeplex.com/releases/view/88576](http://thalessim.codeplex.com/releases/view/88576)
+ 2. Unzip the downloaded file and execute the file ```ThalesWinSimulatorSetup.msi```, accepting the default options.
+ 
+#### Starting the Thales Simulator
+
+ 1. Navigate to the folder where you installed the Simulator (E.g. ```C:\Program Files (x86)\NTG\Thales Simulator\```)
+ 2. Execute ThalesWinSimulator.exe (if your are running Windows 7, right click the file and select Run As Administrator)
+ 3. Click the Start Simulator button: ![Start Button](./SimulatorStartButton.png)
+ 4. In the Application Events window, the simulator will inform you that it could not find a file containing the LMK keys so it will create a new set of keys for you. The Simulator will always create the same keys. ![New Keys](./NewKeysImage.png)
+
+
+#### Using the Simulator Console
+
+In this section, we will connect to the HSM Console and run a basic command, Query Host (QH) to test connectivity to the HSM.
+
+For a full list of console commands, you will need to refer to the *Console Reference Manual* which is available from Thales.
+
+Note: The Thales Simulator only implements a subset of the commands. A list of implemented console commands can be found  [here](http://thalessim.codeplex.com/wikipage?title=list%20of%20supported%20console%20commands).
+
+#####  Connecting with the Simulator Console
+
+In this section, we ... TODO describe what we are doing here
+
+ 1. Start the simulator as described in [Starting the Thales Simulator](./book.md#starting-the-thales-simulator)
+ 2. Click The Console button ![Console Button](./ConnectToConsoleButton.png)
+ 3. In the console window click *Connect to Console*.
+ 4. Enter the *console* command ```QH``` followed by ENTER. 
+ 5. You should see something similar to this ![Console Button](./QHCommandOutput.png)
+ 
+In this exercise, we executed a console command ```QH``` against the simulator and observed the response that was displayed by the simulator.
+
+#####  Connecting with a Python Client
+
+See Appendix (TODO) to see instructions for:
+- installing python
+- running python code
+
+```python
+import binascii
+import socket
+import sys
+
+# open a connection to the Thales Simulator
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_address = ('localhost', 9998)
+sock.connect(server_address)
+
+# send a command
+sock.send(bytes.fromhex('0006303030304e43'))
+
+# receive the command response
+recv_data = sock.recv(1024)
+
+# printout response
+sys.stdout.buffer.write(recv_data)
+
+# close the connection
+sock.close()
+```
+
+The code simply opens a TCP connection to a Thales Simulator listening on ```localhost``` on port ```9998```.  Next the python client converts the string ```0006303030304e43``` from its hexidecimal format to binary and sends it to the Thales Simulator.  Finally the code receives the response and prints it to standard output.
+
+To understand the meaning of the string ```0006303030304e43```, it can be broken down as follows (in reverse order):
+
+- ```4e43``` is the 2 byte command ```NC``` as hex
+- ```30303030``` adds a 4 byte header ```0000``` as hex
+- ```0006``` represents the length in hex of the comamnd and header (i.e. the length of ```0000NC```)
+
+The command should output a response similar to the following:
+
+```
+ !0000ND007B44AC1DDEE2A94B0007-E000
+```
+
+The response from HSM can be broken down as follows:
+
+- ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
+- ```0000``` is HSM response header which is set the same as for received command
+- ```ND``` the response code. The response from HSM always is command code with incremented second letter
+- ```00``` error code, ```00``` means that no errors occured during command processing
+- ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
+- ```0007-E000``` means the HSM firmware revision number
+
+Each command has its own response specification, see "Host command reference manual" for more details.
 
 # HSM Local Master Keys (LMKs)
 
