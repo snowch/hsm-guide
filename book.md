@@ -627,7 +627,7 @@ Keys are encrypted under LMK pairs using either the clear value of the LMK or a 
 
 ## Exercises
 
-TODO - what exercises could be performed on the Simulator around LMK Concepts?
+TODO - what exercises could be performed on the Simulator around LMK Concepts?  Could we walk through the default keys with the HSM simulator and how to change those keys?
 
 # Key Concepts
 
