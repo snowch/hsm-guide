@@ -524,8 +524,14 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('localhost', 9998)
 sock.connect(server_address)
 
+# the command we need to send
+command = b'0006303030304e43'
+
+# convert the hex string to binary
+command = binascii.a2b_hex(command)
+
 # send a command
-sock.send(bytes.fromhex('0006303030304e43'))
+sock.send(command)
 
 # receive the command response
 recv_data = sock.recv(1024)
