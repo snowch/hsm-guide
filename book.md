@@ -791,13 +791,13 @@ Key check value: 277A 5F
 
 ##### Description
 
-We are generating a *Double-length* key, so we choose a Key Length of *2*. See [Key Schemes](#key-schemes) for a list of the key schemes.
+We are generating a *Double-length* key, so we choose a Key Length of *2*. See [Key Schemes](#key-scheme) for a list of the key schemes.
 
 We are generating *ZMK* keys, so we use the Key Type *000*.  See [Key Types](#key-types) for a list of the key types.
 
-We are generating a *Double-length variant key*, which has a Key Scheme of *U*. See [Key Schemes](#key-schemes) for a list of the key schemes.
+We are generating a *Double-length variant key*, which has a Key Scheme of *U*. See [Key Schemes](#key-scheme) for a list of the key schemes.
 
-TODO: refer to a section that describes how to decided which scheme and type of key is most suitable for your particular encryption requirements?  E.g. why have we chosen *Double-length variant key* and not *Single-length ANSI keys* for this example?
+TODO: refer to a section that describes how to decide which scheme and type of key is most suitable for your particular encryption requirements?  E.g. why have we chosen *Double-length variant key* and not *Single-length ANSI keys* for this example?
 
 #### Generate the ZMK from the components
 
