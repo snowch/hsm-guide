@@ -798,15 +798,15 @@ This step uses the FK command to generate the ZMK from the three ZMK components 
 TODO: describe the various command options and how to choose which option values to use.
 
 ```text
-FK                                      # User input
-Key length [1,2,3]: 2                   # User input
-Key Type: 000                           # User input
-Key Scheme: U                           # User input
-Component type [X,H,E,S]: E             # User input
-Enter number of components (2-9): 3     # User input
-Enter component #1: U 1BA5 185A FCF1 5A1B 274B E1E0 03B4 7C2A
-Enter component #2: U FCE4 7AF7 FFF8 9F40 2407 A35A F063 D3E1
-Enter component #3: U EE8D 4F9E C8B2 ADF4 9CD2 F0D2 7F5C 95C5
+FK                                                       # User input
+Key length [1,2,3]: 2                                    # User input
+Key Type: 000                                            # User input
+Key Scheme: U                                            # User input
+Component type [X,H,E,S]: E                              # User input
+Enter number of components (2-9): 3                      # User input
+Enter component #1: 1BA5185AFCF15A1B274BE1E003B47C2A     # User input from GC response: U 1BA5 185A FCF1 5A1B 274B E1E0 03B4 7C2A
+Enter component #2: FCE47AF7FFF89F402407A35AF063D3E1     # User input from GC response: U FCE4 7AF7 FFF8 9F40 2407 A35A F063 D3E1
+Enter component #3: EE8D4F9EC8B2ADF49CD2F0D27F5C95C5     # User input from GC response: U EE8D 4F9E C8B2 ADF4 9CD2 F0D2 7F5C 95C5
 Encrypted key: U 104C 4216 A751 FEEE FF55 698B 26C5 7789
 Key check value: BA0F C3
 ```
