@@ -765,8 +765,6 @@ The ZMK is distributed manually as components. To create the ZMK, we first creat
 
 Generate three ZMK components using the console command Generate Component (GC). Repeat the command three times as shown below:
 
-TODO: describe the various command options and how to choose which option values to use.
-
 ```text
 GC                         # User input
 Key length [1,2,3]: 2      # User input
@@ -790,6 +788,16 @@ Clear Component: 7AEA B5A4 1A9E 9B68 EF80 494C 0819 4ADA
 Encrypted Component: U EE8D 4F9E C8B2 ADF4 9CD2 F0D2 7F5C 95C5
 Key check value: 277A 5F
 ```
+
+##### Description
+
+We are generating a *Double-length* key, so we choose a Key Length of *2*. See [Key Schemes](#key-schemes) for a list of the key schemes.
+
+We are generating *ZMK* keys, so we use the Key Type *000*.  See [Key Types](#key-types) for a list of the key types.
+
+We are generating a *Double-length variant key*, which has a Key Scheme of *U*. See [Key Schemes](#key-schemes) for a list of the key schemes.
+
+TODO: refer to a section that describes how to decided which scheme and type of key is most suitable for your particular encryption requirements?  E.g. why have we chosen *Double-length variant key* and not *Single-length ANSI keys* for this example?
 
 #### Generate the ZMK from the components
 
