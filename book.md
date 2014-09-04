@@ -10,6 +10,7 @@ An introduction to HSMs.
 - Colin Cook
 - Nick Bitounis
 - Juris Lacis
+- Zeeshan Ahmad
 - Other contributors ...
 
 ## Book License
