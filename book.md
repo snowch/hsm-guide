@@ -810,7 +810,7 @@ FK                                                       # User input
 Key length [1,2,3]: 2                                    # User input
 Key Type: 000                                            # User input
 Key Scheme: U                                            # User input
-Component type [X,H,E,S]: E                              # User input
+Component type [X,H,E,S]: X                              # User input
 Enter number of components (2-9): 3                      # User input
 Enter component #1: 1BA5185AFCF15A1B274BE1E003B47C2A     # User input from GC response: U 1BA5 185A FCF1 5A1B 274B E1E0 03B4 7C2A
 Enter component #2: FCE47AF7FFF89F402407A35AF063D3E1     # User input from GC response: U FCE4 7AF7 FFF8 9F40 2407 A35A F063 D3E1
@@ -818,6 +818,17 @@ Enter component #3: EE8D4F9EC8B2ADF49CD2F0D27F5C95C5     # User input from GC re
 Encrypted key: U 104C 4216 A751 FEEE FF55 698B 26C5 7789
 Key check value: BA0F C3
 ```
+
+The description of the Key length, Key Type and Key Scheme values are described in the Description for [Generate the ZMK Components](#generate-the-zmk-components).
+
+The Component type is either:
+
+X = Clear XOR
+H = Clear Half or Third Key
+E = Encrypted
+S = Smartcard
+
+TODO: describe what each of these values mean, and describe why we needed to use *X*.
 
 # Dynamic Key Exchange
 
