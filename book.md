@@ -823,10 +823,10 @@ The description of the Key length, Key Type and Key Scheme values are described 
 
 The Component type is either:
 
-X = Clear XOR
-H = Clear Half or Third Key
-E = Encrypted
-S = Smartcard
+- X = Clear XOR
+- H = Clear Half or Third Key
+- E = Encrypted
+- S = Smartcard
 
 TODO: describe what each of these values mean, and describe why we needed to use *X*.
 
