@@ -824,12 +824,10 @@ The description of the Key length, Key Type and Key Scheme values are described 
 
 The Component type is either:
 
-- X = Clear XOR
-- H = Clear Half or Third Key
-- E = Encrypted
-- S = Smartcard
-
-TODO: describe what each of these values mean, and describe why we needed to use *X*.
+- X = XORed clear components. The useversal way and the most commonly used, to exchange the keys between different parties.
+- H = Clear Half or Third Key (key splitted into 2 or 3 blocks, each block is entered as separate component). Like XORed clear components, this is applied way to exchange keys between any parties.
+- E = Components encrypted under LMK. HSM forst decrypts the components and XORs decrypted components. Such components can be used only localy since 3rd parties do not have an access to component encryption LMK pair. This is the way to store keys in components in secure manner. 
+- S = Components stored on smartcards. Can only be used to exchange keys between Thales HSMs.
 
 # Dynamic Key Exchange
 
