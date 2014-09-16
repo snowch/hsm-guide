@@ -313,7 +313,7 @@ In the most cases asymmetric cipher paddings are used to randomise the output. U
 
 PKCS#1 v1.5 padding is used to randomise the ciphertext output dirung RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-PKCS#1 scheme must meet the condition ```mLen <= k - 11```, where ```mLen``` is plaintext message length and ```k``` is the public key length. The padding must be at least 11 bytes long and contain at least 8 non-zero random bytes. The scheme below shows the padding structure:
 
-TODO - fix missing image ![PKCS1_1_5_padding](PKCS1_1_5_padding.png)
+![PKCS1_1_5_padding](PKCS1_1_5_padding.png)
 
 When the ciphertext is decrypted, the padding structure must be validated. In a case of structure mismatch the error should be returned. The conditions of valid padding are:
 
