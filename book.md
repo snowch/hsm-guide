@@ -288,7 +288,9 @@ public static byte[] iso9797Method2Pad (byte[] block, int blockSize, boolean for
 	}
 	byte[] paddedBlock = new byte[block.length + padLen];
 	System.arraycopy(block, 0, paddedBlock, 0, block.length);
-	paddedBlock[block.length] = (byte)0x80;
+	if (padLen != 0) {
+		paddedBlock[block.length] = (byte)0x80;
+	}
 	return paddedBlock;
 }
 
