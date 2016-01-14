@@ -211,7 +211,7 @@ The example of PKCS#5 padding on Java:
  * the blockSize variable is passed to the methods
  */
 
-public static byte[] pkcs5Pad(byte[] block, int bloclSize) {
+public static byte[] pkcs5Pad(byte[] block, int blockSize) {
 	int padLen = blockSize - block.length % blockSize;
 	if (padLen == 0) {
 		padLen = blockSize;
