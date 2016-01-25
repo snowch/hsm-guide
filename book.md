@@ -56,7 +56,7 @@ TODO finish about Chapter 2
 Chapter 3, HSM Local Master Keys (LMKs) covers in detail the concept of the LMKs. The knowledge
 gained in this chapter is fundamental to your understanding of the Thales HSM. Almost all other chapters
 depend on you understanding the material covered in this chapter. This chapter concludes with exercise
-with the Thales Simulator to help install the concepts of LMKs.
+with the Thales Simulator to help instill the concepts of LMKs in the reader's mind.
 
 Chapter 4, Key Concepts describes general key concepts that you need to know in addition to the material
 covered in the previous chapter about LMKs. The knowledge in this chapter is of vital importance when
