@@ -56,7 +56,7 @@ TODO finish about Chapter 2
 Chapter 3, HSM Local Master Keys (LMKs) covers in detail the concept of the LMKs. The knowledge
 gained in this chapter is fundamental to your understanding of the Thales HSM. Almost all other chapters
 depend on you understanding the material covered in this chapter. This chapter concludes with exercise
-with the Thales Simulator to help instill the concepts of LMKs.
+with the Thales Simulator to help instil the concepts of LMKs in the reader's mind.
 
 Chapter 4, Key Concepts describes general key concepts that you need to know in addition to the material
 covered in the previous chapter about LMKs. The knowledge in this chapter is of vital importance when
@@ -89,7 +89,7 @@ TODO: Thales Simulator project overview.
 
 ## Thales HSM History and Versions
 
-TODO provide a brief history of THales HSMs and an overview of current HSM versions.
+TODO provide a brief history of Thales HSMs and an overview of current HSM versions.
 
 ## Thales HSM interaction
 
@@ -129,7 +129,7 @@ Encryption functions are used to transmit data securely. Encryption functions ar
 
 ![Encryption functions](Encryption_functions.png)
 
-Authentication functions are used to ensure that the message was not modified during transmission. The message authentication function result is not reversable. The sender calculates a check sum of the message and sends it together with plaintext or encrypted message. The sender, using the same message authentication algorithm can verify the check summ received together with the message. If the check sum is valid, the receiver can be sure that the message was not modified during transmission:
+Authentication functions are used to ensure that the message was not modified during transmission. The message authentication function result is not reversible. The sender calculates a check sum of the message and sends it together with plaintext or encrypted message. The sender, using the same message authentication algorithm can verify the check sum received together with the message. If the check sum is valid, the receiver can be sure that the message was not modified during transmission:
 
 ![Authentication functions](Authentication_functions.png)
 
@@ -137,7 +137,7 @@ Authentication functions are used to ensure that the message was not modified du
 
 Encryption functions are divided into two classes, *symmetric* and *asymmetric*. 
 
-Symmetic encryption algorithms uses the same key for both encryption of plaintext data and decryption of ciphertext. Usually, the decryption algorithm is completely reversed encryption algorithm. The symmetric encryption can use stream ciphers or block ciphers. **This document covers only block cipher encryption**. Block cipher algorithms operate with fixed length blocks of bits on input, if the plain text message can not be split into blocks of the required length before encryption, it has to be padded with additional bytes to meet the required length. 
+Symmetric encryption algorithms uses the same key for both encryption of plaintext data and decryption of ciphertext. Usually, the decryption algorithm is completely reversed encryption algorithm. The symmetric encryption can use stream ciphers or block ciphers. **This document covers only block cipher encryption**. Block cipher algorithms operate with fixed length blocks of bits on input, if the plain text message can not be split into blocks of the required length before encryption, it has to be padded with additional bytes to meet the required length. 
 
 Some of the most commonly used symmetric algorithms are: 
 - Data Encryption Standard (DES / 3DES)
@@ -147,24 +147,24 @@ Some of the most commonly used symmetric algorithms are:
 
 ![Symmetric algorithms](Symmetric_algorithms.png)
 
-Asymmetric, also known as public-key algorithms use different keys (key pairs) for data encryption and decryption, these are called the private key and public key. Both the private and public keys are mathematicaly linked. The asymmetric encryption and decryption algorithms are also different. Before communication the receiver generates the pair of keys and keeps private key secret. The public key is distributed with other parties involved in data exchange. The public key used to encrypt data can't be used to decrypt it. Data can only be decrypted with the private key.
+Asymmetric, also known as public-key algorithms use different keys (key pairs) for data encryption and decryption, these are called the private key and public key. Both the private and public keys are mathematically linked. The asymmetric encryption and decryption algorithms are also different. Before communication the receiver generates the pair of keys and keeps private key secret. The public key is distributed with other parties involved in data exchange. The public key used to encrypt data can't be used to decrypt it. Data can only be decrypted with the private key.
 
 Some of the most commonly used asymmetric algorithms are:
 - Rivest Shamir Adleman (RSA)
 - Diffie-Hellman
 - Digital Signature Algorithm (DSA)
 - ElGamal
-- Elyptic Curve Cipher (ECC)
+- Elliptic Curve Cipher (ECC)
 
 ![Asymmetric algorithms](Asymmetric_algorithms.png)
 
-TODO - brief paragraph to say when to use symmetric and when to use assymetric?
+TODO - brief paragraph to say when to use symmetric and when to use asymmetric?
 
 ### Message authentication functions
 
 Authentication functions are divided into 2 classes, *hash* and *MAC*.
 
-Hash functions are message authentication functions wich produce a fixed length output sum (hash) of variable length input data. The hash functions do not use the encryption functions to produce hashes. Usually in cryptography, hash functions are applied on plain text messages before encryption, so that secrets are not used to produce a hash of the message. Atacker can generate the hashes free for modified messages, because of that no reason to use hash functions on encrypted messages or on plaintext messages without encryption of them.
+Hash functions are message authentication functions which produce a fixed length output sum (hash) of variable length input data. The hash functions do not use the encryption functions to produce hashes. Usually in cryptography, hash functions are applied on plain text messages before encryption, so that secrets are not used to produce a hash of the message. Attackers can generate the hashes free for modified messages, because of that no reason to use hash functions on encrypted messages or on plaintext messages without encryption of them.
 
 Some of the most commonly used hash functions:
 - MD5
@@ -207,7 +207,7 @@ The example of PKCS#5 padding on Java:
 
 ```java
 /* 
- * since different symmetric algoritms have different input data block sizes
+ * since different symmetric algorithms have different input data block sizes
  * the blockSize variable is passed to the methods
  */
 
@@ -236,7 +236,7 @@ public static byte[] pkcs5Unpad(byte[] paddedBlock) {
 
 #### ISO-9797 Method 1 padding
 
-ISO-9797 Method One padding is used for message MACing. This method adds zero bytes to the end of message until it meets the length requirements. It is not necessery to add an additional block of padding if a message meets length requirements. Method One padding can not be used for message encryption because it is impossible to differentiate padding bytes from the message content. 
+ISO-9797 Method One padding is used for message MACing. This method adds zero bytes to the end of message until it meets the length requirements. It is not necessary to add an additional block of padding if a message meets length requirements. Method One padding can not be used for message encryption because it is impossible to differentiate padding bytes from the message content. 
 
 ![ISO-9797 Method 1 padding](ISO9797_1_padding.png)
 
@@ -244,7 +244,7 @@ The example of ISO-9797 Method 1 padding on Java:
 
 ```java
 /* 
- * since different symmetric algoritms have different input data block sizes
+ * since different symmetric algorithms have different input data block sizes
  * the blockSize variable is passed to the methods
  */
  
@@ -261,7 +261,7 @@ public static byte[] iso9797Method1Pad (byte[] block, int blockSize) {
 
 #### ISO-9797 Method 2 padding
 
-ISO-9797 Method Two padding is used for message padding for MAC calculation, but it can be used, also, for message encryption. The padding applied to the message adds one byte vith value 0x80 (a singe bit with value 1) and, if necessery, adds zero bytes until the message meets length requirements. If that padding method is used for message MACing, it is not necessery to add additional block of padding if message is complete, but in a case of message encryption it must be.
+ISO-9797 Method Two padding is used for message padding for MAC calculation, but it can be used, also, for message encryption. The padding applied to the message adds one byte with value 0x80 (a singe bit with value 1) and, if necessary, adds zero bytes until the message meets length requirements. If that padding method is used for message MACing, it is not necessary to add additional block of padding if message is complete, but in a case of message encryption it must be.
 
 Example of ISO9797 Method 2 padding for incomplete message
 
@@ -275,7 +275,7 @@ The example of ISO-9797 Method 2 padding on Java:
 
 ```java
 /* 
- * since different symmetric algoritms have different input data block sizes
+ * since different symmetric algorithms have different input data block sizes
  * the blockSize variable is passed to the methods
  */
  
@@ -309,11 +309,11 @@ public static byte[] iso9797Method2Unpad (byte[] paddedMsg) {
 
 ### Asymmetric cipher paddings
 
-In the most cases asymmetric cipher paddings are used to randomise the output. Usualy, asymmetric paddings have fixed length and is placed in plaintext message in the predefined position.
+In the most cases asymmetric cipher paddings are used to randomise the output. Usually, asymmetric paddings have fixed length and is placed in plaintext message in the predefined position.
 
 #### PKCS#1 v1.5 padding
 
-PKCS#1 v1.5 padding is used to randomise the ciphertext output dirung RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-PKCS#1 scheme must meet the condition ```mLen <= k - 11```, where ```mLen``` is plaintext message length and ```k``` is the public key length. The padding must be at least 11 bytes long and contain at least 8 non-zero random bytes. The scheme below shows the padding structure:
+PKCS#1 v1.5 padding is used to randomise the ciphertext output during RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-PKCS#1 scheme must meet the condition ```mLen <= k - 11```, where ```mLen``` is plaintext message length and ```k``` is the public key length. The padding must be at least 11 bytes long and contain at least 8 non-zero random bytes. The scheme below shows the padding structure:
 
 ![PKCS1_1_5_padding](PKCS1_1_5_padding.png)
 
@@ -371,7 +371,7 @@ public static byte[] pkcs1Unpad (byte[] paddedMsg)
 
 #### PKCS#1 OAEP padding
 
-PKCS#1 OAEP (Optimal Asymmetric Encryption Padding) padding is used to randomise the ciphertext output dirung RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-OAEP scheme must meet the condition ```mLen <= k - 2hLen - 2```, where ```mLen``` is plaintext message length, ```k``` is a public key length, ```hLen``` is the length of hash function output. 
+PKCS#1 OAEP (Optimal Asymmetric Encryption Padding) padding is used to randomise the ciphertext output during RSA encryption to avoid some types of attacks. The message length to be encrypted using RSA-OAEP scheme must meet the condition ```mLen <= k - 2hLen - 2```, where ```mLen``` is plaintext message length, ```k``` is a public key length, ```hLen``` is the length of hash function output. 
 
 TODO - to finish.
 
@@ -460,7 +460,7 @@ $ java JavaRSA 34234234234 512
 0002570D03777D36E4B335597EFCDB68FA076D6B7DFD210B727C9A088D351D52846185F9C03826B35062C1EFB3644C190BE6DDC2003334323334323334323334
 ```
 
-The output abowe shows, that Java adds a random byte PKCS#1 padding to message making it the same length as a public key. In the example public key (modulo) is 512 bits long.
+The output abve shows, that Java adds a random byte PKCS#1 padding to message making it the same length as a public key. In the example public key (modulo) is 512 bits long.
 
 - ```00``` - 1st byte is ```0x00```
 - ```02``` - 2nd byte is ```0x02```
@@ -552,7 +552,7 @@ To understand the meaning of the string ```0006303030304e43```, it can be broken
 
 - ```4e43``` is the 2 byte command ```NC``` as hex
 - ```30303030``` adds a 4 byte header ```0000``` as hex
-- ```0006``` represents the length in hex of the comamnd and header (i.e. the length of ```0000NC```)
+- ```0006``` represents the length in hex of the command and header (i.e. the length of ```0000NC```)
 
 The command should output a response similar to the following:
 
@@ -562,10 +562,10 @@ The command should output a response similar to the following:
 
 The response from HSM can be broken down as follows:
 
-- ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
+- ```!``` actually is ```0021```, it is software header returned by HSM, actual response length
 - ```0000``` is HSM response header which is set the same as for received command
 - ```ND``` the response code. The response from HSM always is command code with incremented second letter
-- ```00``` error code, ```00``` means that no errors occured during command processing
+- ```00``` error code, ```00``` means that no errors occurred during command processing
 - ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
 - ```0007-E000``` means the HSM firmware revision number
 
@@ -826,9 +826,9 @@ The description of the Key length, Key Type and Key Scheme values are described 
 
 The Component type is either:
 
-- X = XORed clear components. The useversal way and the most commonly used, to exchange the keys between different parties.
-- H = Clear Half or Third Key (key splitted into 2 or 3 blocks, each block is entered as separate component). Like XORed clear components, this is applied way to exchange keys between any parties.
-- E = Components encrypted under LMK. HSM forst decrypts the components and XORs decrypted components. Such components can be used only localy since 3rd parties do not have an access to component encryption LMK pair. This is the way to store keys in components in secure manner. 
+- X = XORed clear components. The universal way and the most commonly used, to exchange the keys between different parties.
+- H = Clear Half or Third Key (key split into 2 or 3 blocks, each block is entered as separate component). Like XORed clear components, this is applied way to exchange keys between any parties.
+- E = Components encrypted under LMK. HSM first decrypts the components and XORs decrypted components. Such components can be used only locally since 3rd parties do not have an access to component encryption LMK pair. This is the way to store keys in components in secure manner. 
 - S = Components stored on smartcards. Can only be used to exchange keys between Thales HSMs.
 
 # Dynamic Key Exchange
@@ -929,7 +929,7 @@ private static String byte2hex(byte bs[]) {
 }
 ```
 
-# Appendix B - Some other usefull code peaces
+# Appendix B - Some other useful code pieces
 
 # Appendix C - Introductory Books in Cryptography
 
@@ -961,10 +961,10 @@ The command should output a response similar to the following:
 
 The response from HSM can be broken down as follows:
 
-- ```!``` actualy is ```0021```, it is software header returned by HSM, actual response length
+- ```!``` actually is ```0021```, it is software header returned by HSM, actual response length
 - ```0000``` is HSM response header which is set the same as for received command
 - ```ND``` the response code. The response from HSM always is command code with incremented second letter
-- ```00``` error code, ```00``` means that no errors occured during command processing
+- ```00``` error code, ```00``` means that no errors occurred during command processing
 - ```7B44AC1DDEE2A94B``` Local Master Key (see corresponding chapter) check value
 - ```0007-E000``` means the HSM firmware revision number
 
