@@ -84,7 +84,11 @@ Other acronyms for Hardware Security Modules include:
 - *TRSM* :  Tamper Resistant Security Module
 - *SCD* :  Secure Cryptographic Devices
 
-TODO: Why digital key management? Life without a HSM?
+TODO: Why digital key management? Life without an HSM?
+The primary need of HSM is to protect Digital keys from hackers who may have access to Servers/Sytems which stores Digital keys.
+The conventional method of protecting Digital keys with passphrase has limitations, due to nature of passphrase we have to provide a passphrase for every iteration, which will break automation and passphrase is not secure enough due many reasons like weak md5 hashing algorithm and possibility of brute force attack.
+
+
 TODO: Thales Simulator project overview.
 
 ## Thales HSM History and Versions
@@ -106,6 +110,7 @@ Console commands fall into the categories:
 - HSM diagnostics
 - Creating Keys
 - TODO what else?
+- Importing Keys
 
 ### Host Commands
 
