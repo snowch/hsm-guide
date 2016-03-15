@@ -107,16 +107,34 @@ There are two usage patterns for interacting with the HSM:
 
 Console commands fall into the categories:
 
-- HSM diagnostics
-- Creating Keys
-- TODO what else?
-- Importing Keys
+- HSM Configuration
+- Fraud Detection
+- Diagnostic
+- LMK
+- HSM Authorization
+- Logging
+- Key Management
+- Payment System
+- Smartcard
+- Secure Host Communications
 
 ### Host Commands
 
 Host commands fall into the categories:
 
-- TODO
+- Symmetric Key Management
+- PIN management
+- MAC and HMAC 
+- Message Encryption 
+- User Storage 
+- Print Output Formatting
+- LMK Translation 
+- Auditing 
+- Card Verification Code/Value 
+- EMV Chip Card 
+- Racal Transaction Key Scheme (RTKS) 
+- Derived Unique Key Per Transaction (DUKPT)(X9.24-1) 
+- RSA Cryptosystem 
 
 # Theory
 
@@ -163,7 +181,7 @@ Some of the most commonly used asymmetric algorithms are:
 
 ![Asymmetric algorithms](Asymmetric_algorithms.png)
 
-TODO - brief paragraph to say when to use symmetric and when to use asymmetric?
+Symmetric algorithm are generally faster and more secure for a given length of key than an Asymmetric algorithm, hence it should be used for encrypting traffic between client and server and disk data. On the other hand, Asymmetric algorithm provides means of identifaction and provides proof to communication party and hence it's used for exchanging a secret key with untrusted party and also digitally sign the documents. In real world scenario, both are often used together. An asymmetric algorithm is used to confirm the identity of a communication party and to transmit secret keys that will result in a symmetric key and then later used for encryption of the actual data.
 
 ### Message authentication functions
 
