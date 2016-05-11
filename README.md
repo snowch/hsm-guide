@@ -3,8 +3,6 @@ hsm-guide
 
 To view or edit the book source, go [here](https://github.com/snowch/hsm-guide/blob/master/book.md) (to edit, click on the *Edit* button)
 
-To view the book in print format, go [here](https://gitprint.com/snowch/hsm-guide/blob/master/book.md)
-
 Note: diagrams with the 'uxf' extension have been created using [Umlet](http://www.umlet.com/)
 
 ### Todo
