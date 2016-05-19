@@ -955,6 +955,8 @@ private static String byte2hex(byte bs[]) {
 # Appendix B - Some other useful code pieces
 
 # Appendix C - Introductory Books in Cryptography
+- Introduction to Cryptography from GPGTools: https://gpgtools.tenderapp.com/kb/how-to/introduction-to-cryptography
+- Cryptography: An Introduction (3rd Edition) by Nigel Smart: https://www.cs.umd.edu/~waa/414-F11/IntroToCrypto.pdf
 
 # Appendix - Installing Python
 
