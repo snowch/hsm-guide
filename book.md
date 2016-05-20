@@ -836,7 +836,7 @@ FK                                                       # User input
 Key length [1,2,3]: 2                                    # User input
 Key Type: 000                                            # User input
 Key Scheme: U                                            # User input
-Component type [X,H,E,S]: X                              # User input
+Component type [X,H,E,S]: E                              # User input
 Enter number of components (2-9): 3                      # User input
 Enter component #1: 1BA5185AFCF15A1B274BE1E003B47C2A     # User input from GC response: U 1BA5 185A FCF1 5A1B 274B E1E0 03B4 7C2A
 Enter component #2: FCE47AF7FFF89F402407A35AF063D3E1     # User input from GC response: U FCE4 7AF7 FFF8 9F40 2407 A35A F063 D3E1
@@ -854,6 +854,26 @@ The Component type is either:
 - E = Components encrypted under LMK. HSM first decrypts the components and XORs decrypted components. Such components can be used only locally since 3rd parties do not have an access to component encryption LMK pair. This is the way to store keys in components in secure manner. 
 - S = Components stored on smartcards. Can only be used to exchange keys between Thales HSMs.
 
+**Import the ZMK from the Components**
+
+The ZMK is exchanged using secured methods and Split knowledge policy. Where three components that created above are sent to three nominated Security Officers of the other party. This is one of the most secure way to do it since no single person gains knowledge of the clear ZMK.
+
+If you are at receiving end then you need to import ZMK into your HSM to decrypt the lower level key like ZPK in future.
+
+```text
+FK                                                       # User input
+Key length [1,2,3]: 2                                    # User input
+Key Type: 000                                            # User input
+Key Scheme: U                                            # User input
+Component type [X,H,E,S]: X                              # User input
+Enter number of components (2-9): 3                      # User input
+Enter component #1: 79CD23809B4FC1C47F9EFB2ADF2A674A     # User input from GC response: 79CD 2380 9B4F C1C4 7F9E FB2A DF2A 674A
+Enter component #2: 0157B3DF61163402372C54FD62F21C91     # User input from GC response: 0157 B3DF 6116 3402 372C 54FD 62F2 1C91
+Enter component #3: 7AEAB5A41A9E9B68EF80494C08194ADA     # User input from GC response: 7AEA B5A4 1A9E 9B68 EF80 494C 0819 4ADA
+Encrypted key: U 104C 4216 A751 FEEE FF55 698B 26C5 7789
+Key check value: BA0F C3
+```    
+    
 # Dynamic Key Exchange
 
 ## Overview
