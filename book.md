@@ -665,7 +665,7 @@ TODO - what exercises could be performed on the Simulator around LMK Concepts?  
 
 ## Key Types
 
-Each different key supported by the Thales HSM has a unique code called the key type code. The key type is a three-digit number and is made up from the code of the LMK pair and the LMK variant. Therefore, keys encrypted under LMK pair 04-05 using a variant 1 will have a key type equal to “00” + “1” = 001. It is important to understand key types since several Thales commands expect key type codes as parameters. The full list of key types can be seen in the table below.
+Each different key supported by the Thales HSM has a unique code called the key type code. The key type is a three-digit number and is made up from the code of the LMK pair and the LMK variant. Therefore, keys encrypted under LMK pair 04-05 using a variant 1 will have a key type equal to “00” + “1” = 100. It is important to understand key types since several Thales commands expect key type codes as parameters. The full list of key types can be seen in the table below.
 
 | LMK Key Pair | LMK Code | Variant | Key Type Code | Key Type      |
 |--------------|----------|---------|---------------|---------------|
